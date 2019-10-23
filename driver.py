@@ -1,5 +1,7 @@
 from board import Board
 from player import Player
+from enum import Enum
+from view import GameView, SelectionView
 
 
 class Main:
@@ -8,3 +10,14 @@ class Main:
         self.p2 = Player()
         self.b1 = Board(self.p1)
         self.b2 = Board(self.p2)
+        self.view = None
+
+    def play(self):
+        raise NotImplementedError
+
+
+class Direction(Enum):
+    UP = 0
+    RIGHT = 1
+    DOWN = 2
+    LEFT = 3
