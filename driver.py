@@ -8,8 +8,6 @@ class Main:
     def __init__(self):
         self.p1 = Player()
         self.p2 = Player()
-        self.b1 = Board(self.p1)
-        self.b2 = Board(self.p2)
         self.view = None
 
     def play(self):

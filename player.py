@@ -1,3 +1,4 @@
+from board import Board
 
 
 class Player:
@@ -5,3 +6,4 @@ class Player:
         self.name = name
         self.credits = 16
         self.number_of_ships = 0
+        self.board = Board(self)
