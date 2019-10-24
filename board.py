@@ -1,11 +1,10 @@
 from tile import Tile
-from player import Player
 from ship import ShipAbstract
-from driver import Direction
+from enums import Direction
 
 
 class Board:
-    def __init__(self, player: Player):
+    def __init__(self, player):
         self.grid = [[Tile(player) for _ in range(8)] for _ in range(8)]
         self.player = player
 
@@ -13,7 +12,7 @@ class Board:
                  ship: ShipAbstract):
         raise NotImplementedError
 
-    def get_view(self, target_player: Player):
+    def get_view(self, target_player):
         raise NotImplementedError
 
     def add_attack(self, row: int, column: int):

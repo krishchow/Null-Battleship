@@ -1,9 +1,8 @@
-from player import Player
 from ship import ShipAbstract
 
 
 class Tile:
-    def __init__(self, player: Player, ship):
+    def __init__(self, player):
         self.current_value = None
         self.is_hit = False
         self.player = player

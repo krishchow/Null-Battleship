@@ -1,21 +1,21 @@
-from board import Board
 from player import Player
-from enum import Enum
-from view import GameView, SelectionView
+from view import GameView
 
 
 class Main:
     def __init__(self):
-        self.p1 = Player()
-        self.p2 = Player()
-        self.view = None
+        self.player_one = Player('p1')
+        self.player_two = Player('p2')
+        self.view = GameView(self)
 
     def play(self):
-        raise NotImplementedError
+        self.view.play()
+
+    def validate_position(self, xpos, ypos) -> bool:
+        possible = range(0, 8)
+        return (xpos in possible and ypos in possible)
 
 
-class Direction(Enum):
-    UP = 0
-    RIGHT = 1
-    DOWN = 2
-    LEFT = 3
+if __name__ == '__main__':
+    game = Main()
+    game.play()
