@@ -1,13 +1,16 @@
 import pygame
 from pygame.locals import QUIT
 from enums import DisplayMode
-
+from board import Board
 
 class GameView:
-    def __init__(self, Game):
+    def __init__(self, Game, player_one, player_two):
         self.game = Game
-        self.currentMode = DisplayMode.Title
-
+        self.player_one = player_one
+        self.player_Two = player_two
+        self.board = Board(self.player_one)
+        self.currentMode = DisplayMode.Gameplay
+        
     def title_screen(self):
         raise NotImplementedError
     
@@ -15,7 +18,7 @@ class GameView:
         raise NotImplementedError
 
     def game_screen(self):
-        raise NotImplementedError
+        self.board.get_view(self.player_one)
 
     def is_over(self):
         raise NotImplementedError
