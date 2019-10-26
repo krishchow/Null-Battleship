@@ -13,7 +13,8 @@ class Main:
     def play(self):
         #Note: Switch the 'DisplayMode' enum type before use.
         self.view.play()
-    def validate_position(self, xpos, ypos) -> bool:
+
+    def validate_position(self, xpos, ypos)-> bool:
         possible = range(0, 8)
         return (xpos in possible and ypos in possible)
 
@@ -21,3 +22,6 @@ class Main:
 if __name__ == '__main__':
     game = Main()
     game.play()
+
+    game.on_execute()
+
