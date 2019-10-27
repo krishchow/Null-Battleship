@@ -2,6 +2,8 @@ import pygame
 from pygame.locals import QUIT
 from enums import DisplayMode
 from board import Board
+from player import Player
+
 
 class GameView:
     screen: Pygame.Surface()
@@ -25,8 +27,10 @@ class GameView:
 
     def game_screen(self):
         self.board.get_view(self.player_one)
+
     def winner(self):
         raise NotImplementedError
+
     def is_over(self):
         raise NotImplementedError
 
@@ -68,13 +72,14 @@ class GameView:
         """
         Check for win/lose conditions and game keeps looping till a winner is announced
         """
-        keys_pressed = pygame.key.get_pressed()
-        if self.player == None:        ## if he has no ships print
+        self._keys_pressed = pygame.key.get_pressed()
+        if (player.number_of_ships == 0) and (board.player != winner()):
             print("You lose! :( Better luck next time.")
             self._running = False
-        elif self.player.has_won(self):
+        elif (player.number_of_ships != 0) and (board.player != winner()):
             print("Congradulations, you won!")
             self._running = False
+        else:
 
 
 
