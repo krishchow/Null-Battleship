@@ -1,7 +1,7 @@
 import pygame
 from tile import Tile
 from ship import ShipAbstract
-from enums import Direction
+from util.enums import Direction
 from typing import List
 
 class Board:

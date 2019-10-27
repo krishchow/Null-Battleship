@@ -5,10 +5,10 @@ from board import Board
 import random
 
 class Main:
-    def __init__(self):
-        self.player_one = Player('p1')
-        self.player_two = Player('p2')
-        self.view = GameView(self, self.player_one, self.player_two)
+    def __init__(self, player_one: str, player_two: str):
+        self.player_one = Player(player_one)
+        self.player_two = Player(player_two)
+        self.view = GameView(self)
 
     def play(self):
         #Note: Switch the 'DisplayMode' enum type before use.
@@ -28,20 +28,16 @@ class Main:
         return self.player_one.board
 
 if __name__ == '__main__':
-    game = Main()
+    
+    #player1name = input(str("Select a username: "))
+    #player2name =  input(str("Select a username: "))
+    
+    #game = Main(player1name, player2name)
+    game = Main('k', 'c')
     game.play()
-    player1name = input(str("Select a username: "))
-    p1 = Player(player1name)    #create an player1 object
-    player2name =  input(str("Select a username: "))
-    p2 = Player(playername2)    #create an player2 object
     #TO START THE GAME, SELECTED RANDOMNLY
-    choose_player = [player1, player2]
-    chosen = random.choice(choose_player)
-    print(chosen + "will start first")
+    #choose_player = [player1, player2]
+    #chosen = random.choice(choose_player)
+    #print(chosen + "will start first")
     #while game is not over, keep looping through this process --> instructions
-
-
-
-    game.on_execute()
-
 

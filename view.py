@@ -1,15 +1,17 @@
 import pygame
+from pygame import Surface
 from pygame.locals import QUIT
-from enums import DisplayMode
+from util.enums import DisplayMode
 from board import Board
 from player import Player
-from sprites import parameters
+from util import parameters, viewSupport
+
 
 class GameView:
-    screen: pygame.Surface()
+    screen: Surface
 
-    def __init__(self, Game):
-        self.game = Game
+    def __init__(self, game):
+        self.game = game
         self.board = game.current_board()
         self.currentMode = DisplayMode.Title
         self._running = False        # This is to begin running the game
@@ -18,15 +20,23 @@ class GameView:
         self.colors = parameters.colors
         self.board_params = parameters.board_params
         self.clock = pygame.time.Clock()
+        self.clickables = []
+        self._init_phase = True
         
     def title_screen(self):
-        raise NotImplementedError
+        self.screen.fill(self.colors["blue"])
+        if self._init_phase:
+            button = viewSupport.Button(150,450, 100,50, 'hi')
+            self.clickables.append(button)
+            self._init_phase = False
+        
+        for i in self.clickables:
+            i.render(self.screen)
     
     def selection_screen(self):
         raise NotImplementedError
 
     def game_screen(self):
-        
         self.screen.fill(self.colors["grey"])
 
     def winner(self):
@@ -40,12 +50,11 @@ class GameView:
         Run the game until the game ends.
         """
 
-        self.on_init()
         while self._running:
             pygame.time.wait(100)
             for event in pygame.event.get():
                 self.on_event(event)
-            self.on_loop()
+            #self.on_loop()
             self.on_render()
             self.clock.tick(30)
         self.on_cleanup()
@@ -56,20 +65,26 @@ class GameView:
         """
 
         pygame.init()
-        screen = pygame.display.set_mode \
-            (self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
-        #self.display = pygame.display.set_mode((1000, 600))
+        #self.screen = pygame.display.set_mode \
+        #    (self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
+        self.screen = pygame.display.set_mode((1000, 600))
         self._running = True
 
-    def on_event(self, event: pygame.Event) -> None:
+    def on_event(self, event: pygame.event) -> None:
         """
         React to the given <event> as appropriate.
         """
 
         if event.type == pygame.QUIT:
             self._running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            handleMouseDown(self)
+        elif self.currentMode == DisplayMode.Gameplay:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                handleMouseDown(self)
+        elif self.currentMode == DisplayMode.Title:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for i in self.clickables:
+                    i.ifClicked(pygame.mouse.get_pos())
+        
 
     def on_loop(self)-> None:                           ## FIX SELF.PLAYER with actual player once I define
         """

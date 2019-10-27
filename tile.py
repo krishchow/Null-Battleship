@@ -1,6 +1,6 @@
 from ship import ShipAbstract
 import pygame
-from sprites import parameters
+from util import parameters
 
 class Tile:
     icon: pygame.Surface
