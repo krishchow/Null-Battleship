@@ -2,75 +2,22 @@ import pygame
 from tile import Tile
 from ship import ShipAbstract
 from enums import Direction
-
+from typing import List
 
 class Board:
-    
+    grid : List[List[Tile]]
+
     def __init__(self, player):
         #TODO: Integrate Tile Class
         self.grid = [[Tile(player) for x in range(8)] for y in range(8)]
         self.player = player
-        self.colors = {
-            "white": (255, 255, 255),
-            "grey": (169, 169, 169),
-            "green": (0, 255, 0)
-        }
-        self.board_params = {
-            "window_size": [512,512],
-            "cell_width": 55,
-            "cell_height": 55,
-            "margin": 5
-        }
-        self.screen = pygame.display.set_mode(self.board_params["window_size"])
-        self.quit_flag = False
-        self.clock = pygame.time.Clock()
         
-    def get_view(self, target_player):
-        
-        pygame.init()
-        
-        while not self.quit_flag:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT: 
-                    self.quit_flag = True
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-
-                    pos = pygame.mouse.get_pos()
-
-                    # Change the x/y screen coordinates to grid coordinates
-
-                    column = pos[0] // (self.board_params["cell_width"] + self.board_params["margin"])
-                    row = pos[1] // (self.board_params["cell_height"] + self.board_params["margin"])
-
-                    # Set that location to True
-                    self.grid[row][column].is_hit = True
-                    print(self.grid)
-                    print ('Click ', pos, 'Grid coordinates: ', row, column)
-
-            # Set the screen background
-
-            self.screen.fill(self.colors["grey"])
-
-            # Draw the grid
-
-            for row in range(8):
-                for column in range(8):
-                    color = self.colors["white"]
-                    if self.grid[row][column].is_hit == True:
-                        color = self.colors["green"]
-                    pygame.draw.rect(self.screen, color, 
-                    [(self.board_params["margin"] + self.board_params["cell_width"]) * column + self.board_params["margin"],
-                     (self.board_params["margin"] + self.board_params["cell_height"]) * row + self.board_params["margin"],
-                     self.board_params["cell_width"], self.board_params["cell_height"]])
-
-            # Limit to 60 frames per second
-            self.clock.tick(60)
-
-            # Updates On Change
-            pygame.display.flip()
-
-        pygame.quit()
-
+    def get_view(self, screen, target_player):        
+        for row in range(8):
+            for column in range(8):
+                xpos = (self.board_params["margin"] + self.board_params["cell_width"]) * column + self.board_params["margin"]                
+                ypos = (self.board_params["margin"] + self.board_params["cell_height"]) * row + self.board_params["margin"]
+                self.grid[column][row].render(screen, xpos,ypos, target_player)
         
     def add_ship(self, row: int, column: int, direction: Direction,
                  ship: ShipAbstract):

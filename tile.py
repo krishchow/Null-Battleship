@@ -1,6 +1,6 @@
 from ship import ShipAbstract
 import pygame
-
+from sprites import parameters
 
 class Tile:
     icon: pygame.Surface
@@ -21,3 +21,17 @@ class Tile:
             if self.current_value:
                 self.current_value.register_hit()
 
+    def render(self, screen, x, y, target):
+        color = None
+        #this needs to be replaced with sprites
+        if self.is_hit:
+            color = parameters.colors['red']
+        elif target == self.player:
+            if self.current_value:
+                color = parameters.colors['green']
+            else:
+                color = parameters.colors['white']
+        else:
+            color = parameters.colors['white']
+        pygame.draw.rect(screen,color, x, y, \
+            parameters.board_params['cell_width'], parameters.board_params['cell_height'])

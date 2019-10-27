@@ -8,7 +8,6 @@ class Main:
     def __init__(self):
         self.player_one = Player('p1')
         self.player_two = Player('p2')
-        self.board = Board(self.player_one)
         self.view = GameView(self, self.player_one, self.player_two)
 
     def play(self):
@@ -19,6 +18,14 @@ class Main:
         possible = range(0, 8)
         return (xpos in possible and ypos in possible)
 
+    def swap_turn(self) -> None:
+        self.player_one,self.player_two = self.player_two, self.player_one
+
+    def current_player(self) -> Player:
+        return self.player_one
+
+    def current_board(self) -> Board:
+        return self.player_one.board
 
 if __name__ == '__main__':
     game = Main()
