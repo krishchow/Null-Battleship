@@ -26,7 +26,7 @@ class GameView:
     def title_screen(self):
         self.screen.fill(self.colors["blue"])
         if self._init_phase:
-            button = viewSupport.Button(150,450, 100,50, 'hi')
+            button = viewSupport.Button(150,450, 100,50, 'hello!')
             self.clickables.append(button)
             self._init_phase = False
         
