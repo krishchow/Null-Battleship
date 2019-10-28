@@ -6,12 +6,13 @@ from player import Player
 
 class AI(Player):
     moves: queue
-    
+
     def __init__(self):
         super().__init__(self, "AI Player")
         self.moves = queue.Queue
 
     def add_ship(self):
+        
         raise NotImplementedError
 
     def search(self):
