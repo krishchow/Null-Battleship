@@ -47,6 +47,7 @@ class TextInput:
         self.font_size = font_size
         self.max_string_length = max_string_length
         self.input_string = initial_string  # Inputted text
+        self.base_length = len(initial_string)
 
         if not os.path.isfile(font_family):
             font_family = pygame.font.match_font(font_family)
@@ -82,13 +83,14 @@ class TextInput:
                     self.keyrepeat_counters[event.key] = [0, event.unicode]
 
                 if event.key == pl.K_BACKSPACE:
-                    self.input_string = (
-                        self.input_string[:max(self.cursor_position - 1, 0)]
-                        + self.input_string[self.cursor_position:]
-                    )
+                    if len(self.get_text()) > self.base_length:
+                        self.input_string = (
+                            self.input_string[:max(self.cursor_position - 1, 0)]
+                            + self.input_string[self.cursor_position:]
+                        )
 
-                    # Subtract one from cursor_pos, but do not go below zero:
-                    self.cursor_position = max(self.cursor_position - 1, 0)
+                        # Subtract one from cursor_pos, but do not go below zero:
+                        self.cursor_position = max(self.cursor_position - 1, 0)
                 elif event.key == pl.K_DELETE:
                     self.input_string = (
                         self.input_string[:self.cursor_position]
