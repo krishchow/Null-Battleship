@@ -12,7 +12,7 @@ class AI(Player):
         self.moves = queue.Queue
 
     def add_ship(self):
-        
+
         raise NotImplementedError
 
     def search(self):
