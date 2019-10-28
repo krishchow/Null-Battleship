@@ -20,8 +20,14 @@ class Board:
                 self.grid[column][row].render(screen, xpos,ypos, target_player)
         
     def add_ship(self, row: int, column: int, direction: Direction,
-                 ship: ShipAbstract):
-        raise NotImplementedError
+                 ship: ShipAbstract):                                 ###Review this method, tramslate dimensions of ship onto grid
+        for i in range(self.grid):
+            for j in range(self.grid[i]):
+                if self.grid[i][j] != self.player:
+                    self.grid[i][j] = self.player
 
     def add_attack(self, row: int, column: int):
-        raise NotImplementedError
+        for i in range(self.grid):
+            for j in range(self.grid[i]):
+                if self.grid[i][j] == self.player:
+                    return True
