@@ -6,7 +6,7 @@ from board import Board
 from player import Player
 from util import parameters
 from util.viewSupport import *
-
+from textbox.pygame_textinput import TextInput
 
 class GameView:
     screen: Surface
@@ -21,6 +21,7 @@ class GameView:
         self.clock = pygame.time.Clock()
         self.clickables = []
         self.images = []
+        self.events = None
         self.switch_stage(DisplayMode.Title)
         
     def title_screen(self):
@@ -31,7 +32,10 @@ class GameView:
             c.render(self.screen)
     
     def selection_screen(self):
-        self.screen.fill(parameters.colors["green"])
+        self.screen.fill(parameters.colors["white"])
+        if self.tb.update(self.events):
+            pass
+        self.screen.blit(self.tb.get_surface(), (10, 460))
     
     def bot_selection_screen(self):
         self.screen.fill(parameters.colors["white"])
@@ -61,6 +65,8 @@ class GameView:
             self.currentMode = newStage
         elif newStage == DisplayMode.Selection:
             self.currentMode = newStage
+            self.tb = TextInput(initial_string="First Ship (Integer): ")
+             
         elif newStage == DisplayMode.BotSelection:
             self.currentMode = newStage
         elif newStage == DisplayMode.Gameplay:
@@ -74,8 +80,9 @@ class GameView:
         """
 
         while self._running:
-            pygame.time.wait(100)
-            for event in pygame.event.get():
+            #pygame.time.wait(100)
+            self.events = pygame.event.get()
+            for event in self.events:
                 self.on_event(event)
             #self.on_loop()
             self.on_render()
@@ -107,7 +114,9 @@ class GameView:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for i in self.clickables:
                     i.ifClicked(pygame.mouse.get_pos())
-        
+        elif self.currentMode == DisplayMode.Selection:
+            pass
+
 
     def on_loop(self)-> None:                           ## FIX SELF.PLAYER with actual player once I define
         """
@@ -136,7 +145,7 @@ class GameView:
             self.game_screen()
         else:
             self.is_over()
-        pygame.display.flip()
+        pygame.display.update()
     
     def on_cleanup(self) -> None:
         pygame.quit()
