@@ -12,10 +12,6 @@ class ShipAbstract:
         self.num_attacks = -1
         self.total_alive = self.get_total()
 
-    def rotate(self):
-        self.vertical_length, self.horizontal_length = \
-            self.horizontal_length, self.vertical_length
-
     def get_total(self):
         return self.vertical_length * self.horizontal_length
 

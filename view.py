@@ -4,7 +4,8 @@ from pygame.locals import QUIT
 from util.enums import DisplayMode
 from board import Board
 from player import Player
-from util import parameters, viewSupport
+from util import parameters
+from util.viewSupport import *
 
 
 class GameView:
@@ -13,37 +14,59 @@ class GameView:
     def __init__(self, game):
         self.game = game
         self.board = game.current_board()
-        self.currentMode = DisplayMode.Title
+        self.currentMode = None
         self._running = False        # This is to begin running the game
         self._keys_pressed = False   #sequence of keys that are pressed
         self.screen = None
-        self.colors = parameters.colors
-        self.board_params = parameters.board_params
         self.clock = pygame.time.Clock()
         self.clickables = []
-        self._init_phase = True
+        self.images = []
+        self.switch_stage(DisplayMode.Title)
         
     def title_screen(self):
-        self.screen.fill(self.colors["blue"])
-        if self._init_phase:
-            button = viewSupport.Button(150,450, 100,50, 'hello!')
-            self.clickables.append(button)
-            self._init_phase = False
-        
-        for i in self.clickables:
+        for i in self.images:
             i.render(self.screen)
+
+        for c in self.clickables:
+            c.render(self.screen)
     
     def selection_screen(self):
-        raise NotImplementedError
+        self.screen.fill(parameters.colors["green"])
+    
+    def bot_selection_screen(self):
+        self.screen.fill(parameters.colors["white"])
 
     def game_screen(self):
-        self.screen.fill(self.colors["grey"])
+        self.screen.fill(parameters.colors["grey"])
 
     def winner(self):
         raise NotImplementedError
 
     def is_over(self):
         raise NotImplementedError
+
+    def switch_stage(self, newStage: DisplayMode):
+        self.clickables = []
+        self.images = []
+        if newStage == DisplayMode.Title:    
+            button = Button(300,280, 200,60, 'Player V Player')
+            button.handler = lambda x=self: x.switch_stage(DisplayMode.Selection)
+            button2 = Button(300,360, 200,60, 'Player V AI')
+            button2.handler = lambda x=self: x.switch_stage(DisplayMode.BotSelection)
+            self.clickables.append(button)
+            self.clickables.append(button2)
+            self.images.append(MyImage(0,0, "sprites/island.jpg"))
+            self.images.append(MyImage(600,0, "sprites/pirate.png"))
+            self.images.append(MyImage(30,60, "sprites/battleship.png"))
+            self.currentMode = newStage
+        elif newStage == DisplayMode.Selection:
+            self.currentMode = newStage
+        elif newStage == DisplayMode.BotSelection:
+            self.currentMode = newStage
+        elif newStage == DisplayMode.Gameplay:
+            self.currentMode = newStage
+        else:
+            self.currentMode = newStage
 
     def on_execute(self)-> None:
         """
@@ -67,7 +90,7 @@ class GameView:
         pygame.init()
         #self.screen = pygame.display.set_mode \
         #    (self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
-        self.screen = pygame.display.set_mode((1000, 600))
+        self.screen = pygame.display.set_mode((1000, 500))
         self._running = True
 
     def on_event(self, event: pygame.event) -> None:
@@ -107,6 +130,8 @@ class GameView:
             self.title_screen()
         elif self.currentMode == DisplayMode.Selection:
             self.selection_screen()
+        elif self.currentMode == DisplayMode.BotSelection:
+            self.bot_selection_screen()
         elif self.currentMode == DisplayMode.Gameplay:
             self.game_screen()
         else:
@@ -125,8 +150,8 @@ def handleMouseDown(view: GameView) -> None:
 
     # Change the x/y screen coordinates to grid coordinates
 
-    column = pos[0] // (view.board_params["cell_width"] + view.board_params["margin"])
-    row = pos[1] // (view.board_params["cell_height"] + view.board_params["margin"])
+    column = pos[0] // (parameters.board_params["cell_width"] + parameters.board_params["margin"])
+    row = pos[1] // (parameters.board_params["cell_height"] + parameters.board_params["margin"])
 
     # Set that location to True
     board = view.game.current_board()
