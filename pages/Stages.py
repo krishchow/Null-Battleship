@@ -22,6 +22,15 @@ class Stage:
         pass
 
 
+class TStage(Stage):
+    def transition(self):
+        new_stage = Transiton(self.screen, self.game, self)
+        self.game.view.switch_stage(DisplayMode.Transiton, new_page=new_stage)
+
+    def re_enter(self):
+        pass
+
+
 class TitlePage(Stage):
     def switch_stage(self):
         button = Button(300, 280, 200, 60, 'Player V Player')
@@ -50,14 +59,14 @@ class TitlePage(Stage):
                     i.ifClicked(pygame.mouse.get_pos())
 
 
-class GameplayPage(Stage):
+class GameplayPage(TStage):
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 handleMouseDown(self.game)
 
 
-class SelectionPage(Stage):
+class SelectionPage(TStage):
     def switch_stage(self):
         self.tb = TextInput(initial_string="First Ship (Integer): ",
                             max_width=600)
@@ -79,7 +88,7 @@ class SelectionPage(Stage):
         self.events = events
 
 
-class BotSelectionPage(Stage):
+class BotSelectionPage(TStage):
     def render(self):
         self.screen.fill(parameters.colors["lightgrey"])
         pygame.draw.rect(self.screen, parameters.colors['grey'],
@@ -91,6 +100,21 @@ class BotSelectionPage(Stage):
 class GameOver(Stage):
     def render(self):
         self.screen.fill(parameters.colors["grey"])
+
+
+class Transiton(Stage):
+    def __init__(self, screen: pygame.Surface, game, next_stage: TStage):
+        super().__init__(screen, game)
+        self.next_stage = next_stage
+
+    def render(self):
+        self.screen.fill(parameters.colors["lightgrey"])
+
+    def handle_events(self, events):
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONUP:
+                self.game.view.current_page = self.next_stage
+                self.next_stage.re_enter()
 
 
 def handleMouseDown(game) -> None:

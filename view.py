@@ -9,24 +9,26 @@ class GameView:
 
     def __init__(self, game):
         self.game = game
-        self.currentPage = None
+        self.current_page = None
         self._running = False        # This is to begin running the game
         self._keys_pressed = False   # sequence of keys that are pressed
         self.screen = None
         self.clock = pygame.time.Clock()
 
-    def switch_stage(self, new_stage: DisplayMode):
+    def switch_stage(self, new_stage: DisplayMode, new_page=None):
         if new_stage == DisplayMode.Title:
-            self.currentPage = p.TitlePage(self.screen, self.game)
+            self.current_page = p.TitlePage(self.screen, self.game)
         elif new_stage == DisplayMode.Selection:
-            self.currentPage = p.SelectionPage(self.screen, self.game)
+            self.current_page = p.SelectionPage(self.screen, self.game)
         elif new_stage == DisplayMode.BotSelection:
-            self.currentPage = p.BotSelectionPage(self.screen, self.game)
+            self.current_page = p.BotSelectionPage(self.screen, self.game)
         elif new_stage == DisplayMode.Gameplay:
-            self.currentPage = p.GameplayPage(self.screen, self.game)
+            self.current_page = p.GameplayPage(self.screen, self.game)
+        elif new_stage == DisplayMode.Transiton:
+            self.current_page = new_page
         else:
-            self.currentPage = p.GameOver(self.screen, self.game)
-        self.currentPage.switch_stage()
+            self.current_page = p.GameOver(self.screen, self.game)
+        self.current_page.switch_stage()
 
     def on_execute(self) -> None:
         """
