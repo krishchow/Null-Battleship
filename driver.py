@@ -2,7 +2,7 @@ from player import Player
 from view import GameView
 from board import Board
 from util.enums import Direction
-from ship import ShipAbstract, Destoryer
+from ship import ShipAbstract, Destroyer
 
 
 class Main:
@@ -32,7 +32,7 @@ class Main:
 
 def get_ship(ship_num: int) -> ShipAbstract:
     if ship_num == 5:
-        return Destoryer()
+        return Destroyer()
     else:
         return None
 

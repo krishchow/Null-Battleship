@@ -81,7 +81,11 @@ class SelectionPage(Stage):
 
 class BotSelectionPage(Stage):
     def render(self):
-        self.screen.fill(parameters.colors["red"])
+        self.screen.fill(parameters.colors["lightgrey"])
+        pygame.draw.rect(self.screen, parameters.colors['grey'],
+                         (610, 0, 390, 500))
+        self.game.current_board().get_view(self.screen,
+                                           50, 10, self.game.current_player())
 
 
 class GameOver(Stage):

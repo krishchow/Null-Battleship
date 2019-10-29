@@ -22,6 +22,13 @@ class AI(Player):
                     , direction[random.randint(4)], new_ship):
                 break
 
+    def ship_placement(self):
+        while self.credits > 0:
+            choose = [ship.Destroyer, ship.Battleship, ship.Carrier, ship.Cruiser, ship.Submarine]
+            chosen = choose[random.randint(len(choose))]
+            if self.credits - chosen.cost >= 0:
+                self.add_ship(chosen)
+
     def search(self):
         potential_move = [[row, col] for row in range(8) for col in
                           range(8) if not self.board.grid[row][col].isHit]
@@ -38,16 +45,14 @@ class AI(Player):
         else:
             potential_hit = self.moves.get()
             row, col = potential_hit[0], potential_hit[1]
-        if self.board.grid[row][col].isHit:
+        if self.board.grid[row][col].is_hit:
             # will add adjacent tiles to moves
             for x in [-1, 1]:
-                if x + row in range(8) and not self.board.grid[x + row][
-                    col].isHit:
+                if x + row in range(8) and not self.board.grid[x + row][col].is_hit:
                     self.moves.put_nowait([x + row, col])
 
             for y in [-1, 1]:
-                if y + col in range(8) and not self.boar.grid[row][
-                    y + col].isHit:
+                if y + col in range(8) and not self.board.grid[row][y + col].is_hit:
                     self.moves.put_nowait([row, y + col])
 
     def move(self):
