@@ -1,9 +1,11 @@
 import pygame
 from util import parameters
 
+
 def text_objects(text, font, color):
     text_surface = font.render(text, True, color)
     return text_surface, text_surface.get_rect()
+
 
 class Clickable:
     def __init__(self, x, y, width, height):
@@ -17,6 +19,7 @@ class Clickable:
         if self.x+self.width > mouse[0] > self.x and \
             self.y+self.height > mouse[1] > self.y:
             self.handler()
+
 
 class Button(Clickable):
     def __init__(self, x, y, width, height, text):

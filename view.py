@@ -1,19 +1,14 @@
 import pygame
-from pygame import Surface
 from util.enums import DisplayMode
-from board import Board
-from util.viewSupport import *
-from pages.Stages import *
+import pages.Stages as p
 
 
 class GameView:
-    screen: Surface
-    currentPage: Stage
-    board: Board
+    screen: pygame.Surface
+    currentPage: p.Stage
 
     def __init__(self, game):
         self.game = game
-        self.board = game.current_board()
         self.currentPage = None
         self._running = False        # This is to begin running the game
         self._keys_pressed = False   # sequence of keys that are pressed
@@ -22,15 +17,15 @@ class GameView:
 
     def switch_stage(self, new_stage: DisplayMode):
         if new_stage == DisplayMode.Title:
-            self.currentPage = TitlePage(self.screen, self)
+            self.currentPage = p.TitlePage(self.screen, self.game)
         elif new_stage == DisplayMode.Selection:
-            self.currentPage = SelectionPage(self.screen, self)
+            self.currentPage = p.SelectionPage(self.screen, self.game)
         elif new_stage == DisplayMode.BotSelection:
-            self.currentPage = BotSelectionPage(self.screen, self)
+            self.currentPage = p.BotSelectionPage(self.screen, self.game)
         elif new_stage == DisplayMode.Gameplay:
-            self.currentPage = GameplayPage(self.screen, self)
+            self.currentPage = p.GameplayPage(self.screen, self.game)
         else:
-            self.currentPage = GameOver(self.screen, self)
+            self.currentPage = p.GameOver(self.screen, self.game)
         self.currentPage.switch_stage()
 
     def on_execute(self) -> None:
@@ -58,9 +53,9 @@ class GameView:
         self.switch_stage(DisplayMode.Title)
         self._running = True
 
-    def on_loop(self) -> None:                           ## FIX SELF.PLAYER with actual player once I define
+    def on_loop(self) -> None:
         """
-        Check for win/lose conditions and game keeps looping till a winner is announced
+        Check for win/lose conditions
         """
         raise NotImplementedError
 

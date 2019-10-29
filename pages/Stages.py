@@ -6,11 +6,11 @@ from textbox.pygame_textinput import TextInput
 
 
 class Stage:
-    def __init__(self, screen: pygame.Surface, view):
+    def __init__(self, screen: pygame.Surface, game):
         self.clickables = []
         self.images = []
         self.screen = screen
-        self.view = view
+        self.game = game
 
     def switch_stage(self):
         pass
@@ -26,10 +26,10 @@ class TitlePage(Stage):
     def switch_stage(self):
         button = Button(300, 280, 200, 60, 'Player V Player')
         button.handler = \
-            lambda x=self.view: x.switch_stage(DisplayMode.Selection)
+            lambda x=self.game.view: x.switch_stage(DisplayMode.Selection)
         button2 = Button(300, 360, 200, 60, 'Player V AI')
         button2.handler = \
-            lambda x=self.view: x.switch_stage(DisplayMode.BotSelection)
+            lambda x=self.game.view: x.switch_stage(DisplayMode.BotSelection)
         self.clickables.append(button)
         self.clickables.append(button2)
         self.images.append(MyImage(0, 0, "sprites/island.jpg"))
@@ -42,7 +42,7 @@ class TitlePage(Stage):
 
         for c in self.clickables:
             c.render(self.screen)
-    
+
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -54,19 +54,25 @@ class GameplayPage(Stage):
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                handleMouseDown(self.view)
+                handleMouseDown(self.game)
 
 
 class SelectionPage(Stage):
     def switch_stage(self):
-        self.tb = TextInput(initial_string="First Ship (Integer): ")
+        self.tb = TextInput(initial_string="First Ship (Integer): ",
+                            max_width=650)
+        self.events = []
 
     def render(self):
-        self.screen.fill(parameters.colors["white"])
-        self.screen.blit(self.tb.get_surface(), (10, 460))
+        self.screen.fill(parameters.colors["lightgrey"])
+        self.tb.update(self.events)
+        pygame.draw.rect(self.screen, parameters.colors['grey'],
+                         (660, 0, 340, 500))
+        self.events = []
+        self.screen.blit(self.tb.get_surface(), (10, 450))
 
     def handle_events(self, events):
-        self.tb.update(events)
+        self.events = events
 
 
 class BotSelectionPage(Stage):
@@ -79,7 +85,7 @@ class GameOver(Stage):
         self.screen.fill(parameters.colors["grey"])
 
 
-def handleMouseDown(view) -> None:
+def handleMouseDown(game) -> None:
     pos = pygame.mouse.get_pos()
 
     # Change the x/y screen coordinates to grid coordinates
@@ -90,7 +96,7 @@ def handleMouseDown(view) -> None:
     row = pos[1] // height + margin
 
     # Set that location to True
-    board = view.game.current_board()
+    board = game.current_board()
     board.grid[row][column].is_hit = True
     print(board.grid)
     print('Click ', pos, 'Grid coordinates: ', row, column)

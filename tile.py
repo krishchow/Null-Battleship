@@ -2,8 +2,10 @@ from ship import ShipAbstract
 import pygame
 from util import parameters
 
+
 class Tile:
     icon: pygame.Surface
+    
     def __init__(self, player):
         self.current_value = None
         self.is_hit = False
