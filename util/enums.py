@@ -14,3 +14,4 @@ class DisplayMode(Enum):
     Gameplay = 2
     GameOver = 3
     BotSelection = 4
+    Transiton = 5

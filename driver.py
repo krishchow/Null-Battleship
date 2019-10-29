@@ -26,8 +26,8 @@ class Main:
 
     def add_ship(self, string) -> bool:
         # need input verification, parsing and then passed to player board
-        self.current_board().add_ship(0, 0, Direction.DOWN, get_ship(5))
-        #raise NotImplementedError
+        self.current_board().add_ship(0, 0, Direction.RIGHT, get_ship(5))
+        # raise NotImplementedError
 
 
 def get_ship(ship_num: int) -> ShipAbstract:

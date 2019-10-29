@@ -15,6 +15,10 @@ class ShipAbstract:
     def get_total(self):
         return self.vertical_length * self.horizontal_length
 
+    def rotate(self):
+        self.vertical_length, self.horizontal_length = \
+            self.horizontal_length, self.vertical_length
+
     def can_scout(self):
         return self.num_scouts > 0
 

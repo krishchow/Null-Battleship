@@ -9,7 +9,6 @@ class Board:
     grid: List[List[Tile]]
 
     def __init__(self, player):
-        # TODO: Integrate Tile Class
         self.grid = [[Tile(player) for x in range(8)] for y in range(8)]
         self.player = player
         self.width = board_params['cell_width']
@@ -21,7 +20,7 @@ class Board:
             for column in range(8):
                 xpos = (self.margin + self.width) * column + self.margin
                 ypos = (self.margin + self.height) * row + self.margin
-                self.grid[column][row].render(screen, xpos+offx, ypos+offy, target)
+                self.grid[row][column].render(screen, xpos+offx, ypos+offy, target)
 
     def is_ship(self, row, col):
         return (self.validate_pos(row, col) and
@@ -40,8 +39,10 @@ class Board:
         elif direction == Direction.DOWN:
             d, start, end = 1, row, row+ship.vertical_length
         elif direction == Direction.LEFT:
+            ship.rotate()
             d, start, end = -1, column, column-ship.horizontal_length
         else:
+            ship.rotate()
             d, start, end = 1, column, column+ship.horizontal_length
 
         for i in range(start, end, d):
@@ -57,7 +58,10 @@ class Board:
                     positons.append((row, i))
 
         for i in positons:
+            print(i)
             self.grid[i[0]][i[1]].add_ship(ship)
+
+        return True
 
     def add_attack(self, row: int, column: int):
         if not self.validate_pos(row, column):
