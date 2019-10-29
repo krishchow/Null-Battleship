@@ -194,3 +194,7 @@ class TextInput:
     def clear_text(self):
         self.input_string = ""
         self.cursor_position = 0
+
+    def clear_user_text(self):
+        self.input_string = self.input_string[:self.base_length]
+        self.cursor_position = self.base_length

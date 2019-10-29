@@ -11,7 +11,7 @@ colors = {
 
 board_params = {
     "window_size": [512, 512],
-    "cell_width": 55,
-    "cell_height": 55,
+    "cell_width": 50,
+    "cell_height": 50,
     "margin": 5
 }

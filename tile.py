@@ -1,6 +1,6 @@
 from ship import ShipAbstract
 import pygame
-from util.parameters import board_params,colors
+from util.parameters import board_params, colors
 
 
 class Tile:
@@ -39,6 +39,6 @@ class Tile:
                 color = colors['white']
         else:
             color = colors['white']
-        pygame.draw.rect(screen, color, x, y,
+        pygame.draw.rect(screen, color, (x, y,
                          board_params['cell_width'],
-                         board_params['cell_height'])
+                         board_params['cell_height']))

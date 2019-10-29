@@ -60,14 +60,18 @@ class GameplayPage(Stage):
 class SelectionPage(Stage):
     def switch_stage(self):
         self.tb = TextInput(initial_string="First Ship (Integer): ",
-                            max_width=650)
+                            max_width=600)
         self.events = []
 
     def render(self):
         self.screen.fill(parameters.colors["lightgrey"])
-        self.tb.update(self.events)
+        if self.tb.update(self.events):
+            self.game.add_ship(self.tb.get_user_text())
+            self.tb.clear_user_text()
         pygame.draw.rect(self.screen, parameters.colors['grey'],
-                         (660, 0, 340, 500))
+                         (610, 0, 390, 500))
+        self.game.current_board().get_view(self.screen,
+                                           50, 10, self.game.current_player())
         self.events = []
         self.screen.blit(self.tb.get_surface(), (10, 450))
 

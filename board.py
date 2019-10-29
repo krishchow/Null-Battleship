@@ -16,16 +16,17 @@ class Board:
         self.height = board_params['cell_height']
         self.margin = board_params['margin']
 
-    def get_view(self, screen, target):
+    def get_view(self, screen, offx, offy, target):
         for row in range(8):
             for column in range(8):
                 xpos = (self.margin + self.width) * column + self.margin
                 ypos = (self.margin + self.height) * row + self.margin
-                self.grid[column][row].render(screen, xpos, ypos, target)
+                self.grid[column][row].render(screen, xpos+offx, ypos+offy, target)
 
-    def is_ship(self, y, x):
-        return self.validate_pos(y, x) and self.grid[y][x].current_value
-    
+    def is_ship(self, row, col):
+        return (self.validate_pos(row, col) and
+                not self.grid[row][col].current_value)
+
     def validate_pos(self, row, col) -> bool:
         possible = range(0, 8)
         return (col in possible and row in possible)

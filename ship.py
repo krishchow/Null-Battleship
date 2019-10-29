@@ -26,4 +26,14 @@ class ShipAbstract:
         self.is_hit = True
         if self.total_alive == 0:
             self.is_sunk = True
-        
+
+
+class Destoryer(ShipAbstract):
+    def __init__(self):
+        super().__init__()
+        self.num_scouts = 0
+        self.num_attacks = 3
+        self.vertical_length = 5
+        self.horizontal_length = 1
+        self.cost = 5
+        self.total_alive = self.get_total()
