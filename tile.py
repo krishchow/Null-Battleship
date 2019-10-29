@@ -1,11 +1,11 @@
 from ship import ShipAbstract
 import pygame
-from util import parameters
+from util.parameters import board_params,colors
 
 
 class Tile:
     icon: pygame.Surface
-    
+
     def __init__(self, player):
         self.current_value = None
         self.is_hit = False
@@ -23,21 +23,22 @@ class Tile:
             self.is_hit = True
             if self.current_value:
                 self.current_value.register_hit()
-    
+
     def register_scout(self):
         self.is_scouted = True
 
     def render(self, screen, x, y, target):
         color = None
-        #this needs to be replaced with sprites
+        # this needs to be replaced with sprites
         if self.is_hit:
-            color = parameters.colors['red']
+            color = colors['red']
         elif target == self.player or self.is_scouted:
             if self.current_value:
-                color = parameters.colors['green']
+                color = colors['green']
             else:
-                color = parameters.colors['white']
+                color = colors['white']
         else:
-            color = parameters.colors['white']
-        pygame.draw.rect(screen,color, x, y, \
-            parameters.board_params['cell_width'], parameters.board_params['cell_height'])
+            color = colors['white']
+        pygame.draw.rect(screen, color, x, y,
+                         board_params['cell_width'],
+                         board_params['cell_height'])
