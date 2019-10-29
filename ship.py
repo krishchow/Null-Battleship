@@ -32,12 +32,47 @@ class ShipAbstract:
             self.is_sunk = True
 
 
-class Destoryer(ShipAbstract):
+class Carrier(ShipAbstract):
     def __init__(self):
         super().__init__()
-        self.num_scouts = 0
-        self.num_attacks = 3
-        self.vertical_length = 5
-        self.horizontal_length = 1
+        self.num_scouts, self.num_attacks = 0, 3
+        self.vertical_length, self.horizontal_length = 5, 1
         self.cost = 5
         self.total_alive = self.get_total()
+        
+class Battleship(ShipAbstract):
+    def __init__(self):
+        super().__init__()
+        self.num_scouts,  self.num_attacks = 0, 3
+        self.vertical_length, self.horizontal_length = 4, 1
+        self.cost = 5
+        self.total_alive = self.get_total()
+        
+class Cruiser(ShipAbstract): 
+    def __init__(self):
+        super().__init__()
+        self.num_scouts, self.num_attacks = 0, 3
+        self.vertical_length, self.horizontal_length = 3, 1 
+        self.cost = 5
+        self.total_alive = self.get_total()
+        
+class Submarine(ShipAbstract): 
+    def __init__(self):
+        super().__init__()
+        self.num_scouts, self.num_attacks = 0, 3
+        self.vertical_length, self.horizontal_length = 3, 1
+        self.cost = 5
+        self.total_alive = self.get_total()
+
+class Destroyer(ShipAbstract): 
+    def __init__(self):
+        super().__init__()
+        self.num_scouts, self.num_attacks = 0, 3
+        self.vertical_length, self.horizontal_length = 2, 1
+        self.cost = 2
+        self.total_alive = self.get_total()
+        
+
+    
+
+
