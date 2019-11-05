@@ -1,6 +1,8 @@
 
 
 class ShipAbstract:
+    total_ships = 5
+
     def __init__(self):
         self.is_sunk = False
         self.is_hit = False
@@ -11,6 +13,7 @@ class ShipAbstract:
         self.num_scouts = -1
         self.num_attacks = -1
         self.total_alive = self.get_total()
+        self.id = -1
 
     def get_total(self):
         return self.vertical_length * self.horizontal_length
@@ -35,6 +38,7 @@ class ShipAbstract:
 class Carrier(ShipAbstract):
     def __init__(self):
         super().__init__()
+        self.id = 5
         self.num_scouts, self.num_attacks = 0, 3
         self.vertical_length, self.horizontal_length = 5, 1
         self.cost = 5
@@ -44,6 +48,7 @@ class Carrier(ShipAbstract):
 class Battleship(ShipAbstract):
     def __init__(self):
         super().__init__()
+        self.id = 4
         self.num_scouts,  self.num_attacks = 0, 3
         self.vertical_length, self.horizontal_length = 4, 1
         self.cost = 4
@@ -53,6 +58,7 @@ class Battleship(ShipAbstract):
 class Cruiser(ShipAbstract):
     def __init__(self):
         super().__init__()
+        self.id = 3
         self.num_scouts, self.num_attacks = 0, 3
         self.vertical_length, self.horizontal_length = 3, 1
         self.cost = 3
@@ -62,6 +68,7 @@ class Cruiser(ShipAbstract):
 class Destroyer(ShipAbstract):
     def __init__(self):
         super().__init__()
+        self.id = 2
         self.num_scouts, self.num_attacks = 0, 3
         self.vertical_length, self.horizontal_length = 2, 1
         self.cost = 2
@@ -71,6 +78,7 @@ class Destroyer(ShipAbstract):
 class Scout(ShipAbstract):
     def __init__(self):
         super().__init__()
+        self.id = 1
         self.num_scouts, self.num_attacks = 0, 3
         self.vertical_length, self.horizontal_length = 1, 1
         self.cost = 1

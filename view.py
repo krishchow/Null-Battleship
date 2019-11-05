@@ -1,5 +1,6 @@
 import pygame
 from util.enums import DisplayMode
+from util.parameters import board_params
 import pages.Stages as p
 
 
@@ -51,6 +52,7 @@ class GameView:
         """
 
         pygame.init()
+        width, height = board_params['']
         self.screen = pygame.display.set_mode((1000, 500))
         self.switch_stage(DisplayMode.Title)
         self._running = True

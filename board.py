@@ -21,7 +21,8 @@ class Board:
             for column in range(8):
                 xpos = (self.margin + self.width) * column + self.margin
                 ypos = (self.margin + self.height) * row + self.margin
-                self.grid[row][column].render(screen, xpos+offx, ypos+offy, target)
+                self.grid[row][column].render(screen,
+                                              xpos+offx, ypos+offy, target)
                 if self.grid[row][column].anchor:
                     self.anchor_points.append((self.grid[row][column],
                                               xpos+offx, ypos+offy))

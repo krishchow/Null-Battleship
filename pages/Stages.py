@@ -80,6 +80,17 @@ class SelectionPage(TStage):
         self.screen.fill(self.bg)
         if self.game.current_player().is_done():
             self.transition()
+        self.execute_input()
+        pygame.draw.rect(self.screen, parameters.colors['grey'],
+                         (610, 0, 390, 500))
+        self.credits.text = "credits: " + \
+                            str(self.game.current_player().credits)
+        self.credits.render(self.screen)
+        self.game.current_board().get_view(self.screen,
+                                           50, 10, self.game.current_player())
+        self.screen.blit(self.tb.get_surface(), (10, 450))
+
+    def execute_input(self):
         if self.tb.update(self.events):
             values = None
             try:
@@ -89,14 +100,7 @@ class SelectionPage(TStage):
             if values:
                 self.game.add_ship(*values)
                 self.tb.clear_user_text()
-        pygame.draw.rect(self.screen, parameters.colors['grey'],
-                         (610, 0, 390, 500))
-        self.credits.text = "credits: " + str(self.game.current_player().credits)
-        self.credits.render(self.screen)
-        self.game.current_board().get_view(self.screen,
-                                           50, 10, self.game.current_player())
         self.events = []
-        self.screen.blit(self.tb.get_surface(), (10, 450))
 
     def handle_events(self, events):
         self.events = events

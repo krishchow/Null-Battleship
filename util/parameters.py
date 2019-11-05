@@ -10,8 +10,8 @@ colors = {
 }
 
 board_params = {
-    "window_size": [512, 512],
+    "window_size": [1000, 500],
     "cell_width": 50,
     "cell_height": 50,
-    "margin": 5
+    "margin": 2
 }
