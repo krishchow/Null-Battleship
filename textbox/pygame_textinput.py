@@ -87,9 +87,6 @@ class TextInput:
                         + self.input_string[self.cursor_position + 1:]
                     )
 
-                elif event.key == pl.K_RETURN:
-                    return True
-
                 elif event.key == pl.K_RIGHT:
                     # Add one to cursor_pos, but do not exceed len(input_string)
                     self.cursor_position = min(self.cursor_position + 1, len(self.input_string))
@@ -105,6 +102,9 @@ class TextInput:
                 elif event.key == pl.K_HOME:
                     self.cursor_position = 0
 
+                elif event.key == pl.K_RETURN:
+                    pass
+
                 else:
                     # If no special key is pressed, add unicode of key to input_string
                     self.input_string = (
@@ -118,6 +118,8 @@ class TextInput:
                 # *** Because KEYUP doesn't include event.unicode, this dict is stored in such a weird way
                 if event.key in self.keyrepeat_counters:
                     del self.keyrepeat_counters[event.key]
+                if event.key == pl.K_RETURN:
+                    return True
 
         # Update key counters:
         for key in self.keyrepeat_counters:

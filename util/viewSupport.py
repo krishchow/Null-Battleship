@@ -17,7 +17,7 @@ class Clickable:
 
     def ifClicked(self, mouse):
         if self.x+self.width > mouse[0] > self.x and \
-            self.y+self.height > mouse[1] > self.y:
+           self.y+self.height > mouse[1] > self.y:
             self.handler()
 
 

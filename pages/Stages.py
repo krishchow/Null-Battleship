@@ -28,7 +28,7 @@ class TStage(Stage):
         self.game.view.switch_stage(DisplayMode.Transiton, new_page=new_stage)
 
     def re_enter(self):
-        pass
+        raise NotImplementedError
 
 
 class TitlePage(Stage):
@@ -71,14 +71,29 @@ class SelectionPage(TStage):
         self.tb = TextInput(initial_string="First Ship (Integer): ",
                             max_width=600)
         self.events = []
+        self.bg = parameters.colors['lightgrey']
+        self.credits = Button(500, 20, 100, 30,  "credits: " +
+                              str(self.game.current_player().credits))
+        self.credits.bg = self.bg
 
     def render(self):
-        self.screen.fill(parameters.colors["lightgrey"])
+        self.screen.fill(self.bg)
+        if self.game.current_player().is_done():
+            self.transition()
+        print(self.events)
         if self.tb.update(self.events):
-            self.game.add_ship(self.tb.get_user_text())
-            self.tb.clear_user_text()
+            values = None
+            try:
+                values = self.game.parse(self.tb.get_user_text())
+            except ValueError:
+                values = None
+            if values:
+                self.game.add_ship(*values)
+                self.tb.clear_user_text()
         pygame.draw.rect(self.screen, parameters.colors['grey'],
                          (610, 0, 390, 500))
+        self.credits.text = "credits: " + str(self.game.current_player().credits)
+        self.credits.render(self.screen)
         self.game.current_board().get_view(self.screen,
                                            50, 10, self.game.current_player())
         self.events = []
@@ -86,6 +101,11 @@ class SelectionPage(TStage):
 
     def handle_events(self, events):
         self.events = events
+
+    def re_enter(self):
+        self.game.swap_turn()
+        self.events = []
+        self.tb.clear_user_text()
 
 
 class BotSelectionPage(TStage):
@@ -113,8 +133,8 @@ class Transiton(Stage):
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
-                self.game.view.current_page = self.next_stage
                 self.next_stage.re_enter()
+                self.game.view.current_page = self.next_stage
 
 
 def handleMouseDown(game) -> None:
