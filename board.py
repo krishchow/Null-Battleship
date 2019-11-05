@@ -16,15 +16,25 @@ class Board:
         self.margin = board_params['margin']
 
     def get_view(self, screen, offx, offy, target):
+        anchor_points = []
         for row in range(8):
             for column in range(8):
                 xpos = (self.margin + self.width) * column + self.margin
                 ypos = (self.margin + self.height) * row + self.margin
                 self.grid[row][column].render(screen, xpos+offx, ypos+offy, target)
+                if self.grid[row][column].anchor:
+                    self.anchor_points.append((self.grid[row][column],
+                                              xpos+offx, ypos+offy))
+        for point, x, y in anchor_points:
+            point.draw_image(self.screen, x, y, self.anchor[1])
 
     def is_ship(self, row, col):
         return (self.validate_pos(row, col) and
                 not self.grid[row][col].current_value)
+
+    def get(self, row, col) -> Tile:
+        if self.validate_pos(row, col):
+            return self.grid[row][col]
 
     def validate_pos(self, row, col) -> bool:
         possible = range(0, 8)

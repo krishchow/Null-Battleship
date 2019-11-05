@@ -40,11 +40,11 @@ class Button(Clickable):
         screen.blit(text_surface, text_rect)
 
 
-class MyImage:
+class Image:
     def __init__(self, x, y, path):
         self.asset = pygame.image.load(path)
         self.x = x
         self.y = y
-    
+
     def render(self, screen):
         screen.blit(self.asset, [self.x, self.y])

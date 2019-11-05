@@ -11,6 +11,7 @@ class Tile:
         self.is_hit = False
         self.is_scouted = False
         self.player = player
+        self.anchor = None
 
     def add_ship(self, ship: ShipAbstract) -> bool:
         if not self.current_value:
@@ -42,3 +43,6 @@ class Tile:
         pygame.draw.rect(screen, color, (x, y,
                          board_params['cell_width'],
                          board_params['cell_height']))
+
+    def draw_image(self, screen, x, y, direction):
+        pass

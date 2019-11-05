@@ -1,6 +1,6 @@
 from util.enums import DisplayMode
 import pygame
-from util.viewSupport import Button, MyImage
+from util.viewSupport import Button, Image
 from util import parameters
 from textbox.pygame_textinput import TextInput
 
@@ -41,9 +41,9 @@ class TitlePage(Stage):
             lambda x=self.game.view: x.switch_stage(DisplayMode.BotSelection)
         self.clickables.append(button)
         self.clickables.append(button2)
-        self.images.append(MyImage(0, 0, "sprites/island.jpg"))
-        self.images.append(MyImage(600, 0, "sprites/pirate.png"))
-        self.images.append(MyImage(30, 60, "sprites/battleship.png"))
+        self.images.append(Image(0, 0, "sprites/island.jpg"))
+        self.images.append(Image(600, 0, "sprites/pirate.png"))
+        self.images.append(Image(30, 60, "sprites/battleship.png"))
 
     def render(self):
         for i in self.images:
@@ -80,7 +80,6 @@ class SelectionPage(TStage):
         self.screen.fill(self.bg)
         if self.game.current_player().is_done():
             self.transition()
-        print(self.events)
         if self.tb.update(self.events):
             values = None
             try:

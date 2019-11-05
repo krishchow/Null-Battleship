@@ -29,6 +29,7 @@ class Main:
         print(row, col, direction, ship.cost)
         if self.current_player().credits >= ship.cost:
             if self.current_board().add_ship(row, col, direction, ship):
+                self.current_board().get(row, col).anchor = (True, direction)
                 self.current_player().deduct_cost(ship.cost)
 
     def parse(self, string) -> tuple:
