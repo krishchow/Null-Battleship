@@ -58,7 +58,6 @@ class Board:
                     positons.append((row, i))
 
         for i in positons:
-            print(i)
             self.grid[i[0]][i[1]].add_ship(ship)
 
         return True

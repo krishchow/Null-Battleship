@@ -5,7 +5,7 @@ import pages.Stages as p
 
 class GameView:
     screen: pygame.Surface
-    currentPage: p.Stage
+    current_page: p.Stage
 
     def __init__(self, game):
         self.game = game
@@ -39,8 +39,8 @@ class GameView:
             # pygame.time.wait(100)
             events = pygame.event.get()
             if events:
-                self.currentPage.handle_events(events)
-            self.currentPage.render()
+                self.current_page.handle_events(events)
+            self.current_page.render()
             pygame.display.update()
             self.clock.tick(30)
         self.on_cleanup()
