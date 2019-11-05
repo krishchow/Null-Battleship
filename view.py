@@ -38,9 +38,7 @@ class GameView:
 
         while self._running:
             # pygame.time.wait(100)
-            events = pygame.event.get()
-            if events:
-                self.current_page.handle_events(events)
+            self.parse_events()
             self.current_page.render()
             pygame.display.update()
             self.clock.tick(30)
@@ -52,7 +50,7 @@ class GameView:
         """
 
         pygame.init()
-        width, height = board_params['']
+        width, height = board_params['window_size']
         self.screen = pygame.display.set_mode((1000, 500))
         self.switch_stage(DisplayMode.Title)
         self._running = True
@@ -69,3 +67,13 @@ class GameView:
     def play(self):
         self.on_init()
         self.on_execute()
+
+    def parse_events(self) -> list:
+        events = pygame.event.get()
+        if not events:
+            return None
+        events = list(events)
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        self.current_page.handle_events(events)

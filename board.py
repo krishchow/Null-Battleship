@@ -24,10 +24,10 @@ class Board:
                 self.grid[row][column].render(screen,
                                               xpos+offx, ypos+offy, target)
                 if self.grid[row][column].anchor:
-                    self.anchor_points.append((self.grid[row][column],
-                                              xpos+offx, ypos+offy))
+                    anchor_points.append((self.grid[row][column],
+                                          xpos+offx, ypos+offy))
         for point, x, y in anchor_points:
-            point.draw_image(self.screen, x, y, self.anchor[1])
+            point.draw_image(screen, x, y, point.anchor[1])
 
     def is_ship(self, row, col):
         return (self.validate_pos(row, col) and
