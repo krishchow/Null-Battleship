@@ -88,8 +88,8 @@ class SelectionPage(TStage):
         self.bg = parameters.colors['lightgrey']
 
     def switch_stage(self):
-        self.tb = TextInput(initial_string="First Ship (Integer): ",
-                            max_width=600)
+        self.tb = TextInput(pygame_textinput.modify_base_string("Pick the position of your ships ROW & COL & SOMETHING & DIRECTION: ",
+                            max_width = 300)
         base_string = "credits: " + str(self.game.current_player().credits)
         self.credits = Button(500, 20, 100, 30, base_string)
         self.credits.bg = self.bg
