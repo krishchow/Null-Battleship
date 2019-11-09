@@ -25,7 +25,7 @@ class Stage:
 class TStage(Stage):
     def transition(self):
         new_stage = Transiton(self.screen, self.game, self)
-        self.game.view.switch_stage(DisplayMode.Transiton, new_page=new_stage)
+        self.game.switch_stage(DisplayMode.Transiton, new_page=new_stage)
 
     def re_enter(self):
         raise NotImplementedError
@@ -35,10 +35,10 @@ class TitlePage(Stage):
     def switch_stage(self):
         button = Button(300, 280, 200, 60, 'Player V Player')
         button.handler = \
-            lambda x=self.game.view: x.switch_stage(DisplayMode.Selection)
+            lambda x=self.game: x.switch_stage(DisplayMode.Selection)
         button2 = Button(300, 360, 200, 60, 'Player V AI')
         button2.handler = \
-            lambda x=self.game.view: x.switch_stage(DisplayMode.BotSelection)
+            lambda x=self.game: x.switch_stage(DisplayMode.BotSelection)
         self.clickables.append(button)
         self.clickables.append(button2)
         self.images.append(Image(0, 0, "sprites/island.jpg"))
@@ -102,7 +102,7 @@ class SelectionPage(TStage):
             if self.stage_count < 2:
                 self.transition()
             else:
-                self.game.view.switch_stage(DisplayMode.Gameplay)
+                self.game.switch_stage(DisplayMode.Gameplay)
 
         
         self.execute_input()
@@ -162,7 +162,7 @@ class Transiton(Stage):
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
                 self.next_stage.re_enter()
-                self.game.view.current_page = self.next_stage
+                self.game.set_page(self.next_stage)
 
 
 def handleMouseDown(game) -> None:

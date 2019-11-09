@@ -68,8 +68,8 @@ class Board:
                 else:
                     positons.append((row, i))
 
-        for i in positons:
-            self.grid.get(row,column).add_ship(ship)
+        for r,c in positons:
+            self.get(r,c).add_ship(ship)
 
         self.get(row, column).anchor = direction
         return True

@@ -1,12 +1,12 @@
 import pygame
 from util.enums import DisplayMode
 from util.parameters import board_params
-import pages.Stages as p
+from pages.Stages import Stage
 
 
 class GameView:
     screen: pygame.Surface
-    current_page: p.Stage
+    current_page: Stage
 
     def __init__(self, game):
         self.game = game
@@ -16,20 +16,6 @@ class GameView:
         self.screen = None
         self.clock = pygame.time.Clock()
 
-    def switch_stage(self, new_stage: DisplayMode, new_page=None):
-        if new_stage == DisplayMode.Title:
-            self.current_page = p.TitlePage(self.screen, self.game)
-        elif new_stage == DisplayMode.Selection:
-            self.current_page = p.SelectionPage(self.screen, self.game)
-        elif new_stage == DisplayMode.BotSelection:
-            self.current_page = p.BotSelectionPage(self.screen, self.game)
-        elif new_stage == DisplayMode.Gameplay:
-            self.current_page = p.GameplayPage(self.screen, self.game)
-        elif new_stage == DisplayMode.Transiton:
-            self.current_page = new_page
-        else:
-            self.current_page = p.GameOver(self.screen, self.game)
-        self.current_page.switch_stage()
 
     def on_execute(self) -> None:
         """
@@ -52,7 +38,7 @@ class GameView:
         pygame.init()
         width, height = board_params['window_size']
         self.screen = pygame.display.set_mode((1000, 500))
-        self.switch_stage(DisplayMode.Title)
+        self.game.switch_stage(DisplayMode.Title)
         self._running = True
 
     def on_loop(self) -> None:

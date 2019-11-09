@@ -1,8 +1,9 @@
 from player import Player
 from view import GameView
 from board import Board
-from util.enums import Direction
+from util.enums import Direction, DisplayMode
 from ship import ShipAbstract, Destroyer, Carrier, Cruiser, Battleship, Scout
+import pages.Stages as p
 
 
 class Main:
@@ -24,12 +25,31 @@ class Main:
     def current_board(self) -> Board:
         return self.player_one.board
 
+    def switch_stage(self, new_stage: DisplayMode, new_page=None):
+        if new_stage == DisplayMode.Title:
+            self.set_page(p.TitlePage(self.view.screen, self))
+        elif new_stage == DisplayMode.Selection:
+            self.set_page(p.SelectionPage(self.view.screen, self))
+        elif new_stage == DisplayMode.BotSelection:
+            self.set_page(p.BotSelectionPage(self.view.screen, self))
+        elif new_stage == DisplayMode.Gameplay:
+            self.set_page(p.GameplayPage(self.view.screen, self))
+        elif new_stage == DisplayMode.Transiton:
+            self.set_page(new_page)
+        elif new_stage == DisplayMode.GameOver:
+            self.set_page(p.GameOver(self.view.screen, self))
+        self.view.current_page.switch_stage()
+    
+    def set_page(self, stage: p.Stage):
+        self.view.current_page  = stage
+
     def add_ship(self, row, col, direction, ship: ShipAbstract) -> bool:
         # need input verification, parsing and then passed to player board
         print(row, col, direction, ship.cost)
         if self.current_player().credits >= ship.cost:
             if self.current_board().add_ship(row, col, direction, ship):
                 self.current_player().deduct_cost(ship.cost)
+
 
     def parse(self, string) -> tuple:
         values = string.split()
