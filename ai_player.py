@@ -28,6 +28,7 @@ class AI(Player):
             chosen = choose[random.randint(len(choose))]
             if self.credits - chosen.cost >= 0:
                 self.add_ship(chosen)
+                self.deduct_cost(chosen.cost)
 
     def search(self):
         potential_move = [[row, col] for row in range(8) for col in
