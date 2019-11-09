@@ -42,7 +42,7 @@ class Board:
 
     def add_ship(self, row: int, column: int, direction: Direction,
                  ship: ShipAbstract):
-        positons = []
+        positions = []
         d, start, end = 0, 0, 0
         if direction == Direction.UP:
             d, start, end = -1, row, row - ship.vertical_length
@@ -60,14 +60,14 @@ class Board:
                 if not self.is_ship(i, column):
                     return False
                 else:
-                    positons.append((i, column))
+                    positions.append((i, column))
             else:
                 if not self.is_ship(row, i):
                     return False
                 else:
-                    positons.append((row, i))
+                    positions.append((row, i))
 
-        for r, c in positons:
+        for r, c in positions:
             self.get(r, c).add_ship(ship)
 
         self.get(row, column).anchor = direction
