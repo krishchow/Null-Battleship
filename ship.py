@@ -1,5 +1,3 @@
-
-
 class ShipAbstract:
     total_ships = 5
 
@@ -49,7 +47,7 @@ class Battleship(ShipAbstract):
     def __init__(self):
         super().__init__()
         self.id = 4
-        self.num_scouts,  self.num_attacks = 1, 2
+        self.num_scouts, self.num_attacks = 1, 2
         self.vertical_length, self.horizontal_length = 4, 1
         self.cost = 4
         self.total_alive = self.get_total()

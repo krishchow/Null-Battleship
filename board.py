@@ -21,17 +21,16 @@ class Board:
             for column in range(8):
                 xpos = (self.margin + self.width) * column + self.margin
                 ypos = (self.margin + self.height) * row + self.margin
-                self.grid[row][column].render(screen,
-                                              xpos+offx, ypos+offy, target)
-                if self.grid[row][column].anchor:
-                    anchor_points.append((self.grid[row][column],
-                                          xpos+offx, ypos+offy))
+                self.get(row, column).render(screen,
+                                              xpos + offx, ypos + offy, target)
+                if self.get(row, column).anchor:
+                    anchor_points.append((self.get(row, column),
+                                          xpos + offx, ypos + offy))
         for point, x, y in anchor_points:
             point.draw_image(screen, x, y)
 
     def is_ship(self, row, col):
-        return (self.validate_pos(row, col) and
-                not self.grid[row][col].current_value)
+        return self.get(row, col) and self.get(row, col).current_value
 
     def get(self, row, col) -> Tile:
         if self.validate_pos(row, col):
@@ -46,15 +45,15 @@ class Board:
         positons = []
         d, start, end = 0, 0, 0
         if direction == Direction.UP:
-            d, start, end = -1, row, row-ship.vertical_length
+            d, start, end = -1, row, row - ship.vertical_length
         elif direction == Direction.DOWN:
-            d, start, end = 1, row, row+ship.vertical_length
+            d, start, end = 1, row, row + ship.vertical_length
         elif direction == Direction.LEFT:
             ship.rotate()
-            d, start, end = -1, column, column-ship.horizontal_length
+            d, start, end = -1, column, column - ship.horizontal_length
         else:
             ship.rotate()
-            d, start, end = 1, column, column+ship.horizontal_length
+            d, start, end = 1, column, column + ship.horizontal_length
 
         for i in range(start, end, d):
             if direction in (Direction.DOWN, Direction.UP):
@@ -68,8 +67,8 @@ class Board:
                 else:
                     positons.append((row, i))
 
-        for r,c in positons:
-            self.get(r,c).add_ship(ship)
+        for r, c in positons:
+            self.get(r, c).add_ship(ship)
 
         self.get(row, column).anchor = direction
         return True

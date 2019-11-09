@@ -62,7 +62,7 @@ class TitlePage(Stage):
 class GameplayPage(TStage):
     def __init__(self, screen: pygame.Surface, game):
         super().__init__(screen, game)
-        self.bg = parameters.colors['blue'] 
+        self.bg = parameters.colors['blue']
 
     def switch_stage(self):
         self.transition()
@@ -75,7 +75,7 @@ class GameplayPage(TStage):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # handleMouseDown(self.game)
                 pass
-    
+
     def re_enter(self):
         self.game.swap_turn()
 
@@ -85,26 +85,24 @@ class SelectionPage(TStage):
         super().__init__(screen, game)
         self.stage_count = 0
         self.events = []
-        self.bg = parameters.colors['lightgrey']        
+        self.bg = parameters.colors['lightgrey']
 
     def switch_stage(self):
         self.tb = TextInput(initial_string="First Ship (Integer): ",
                             max_width=600)
-        
-        self.credits = Button(500, 20, 100, 30,  "credits: " +
-                              str(self.game.current_player().credits))
+        base_string = "credits: " + str(self.game.current_player().credits)
+        self.credits = Button(500, 20, 100, 30, base_string)
         self.credits.bg = self.bg
 
     def render(self):
         self.screen.fill(self.bg)
         if self.game.current_player().is_done():
-            self.stage_count+=1
+            self.stage_count += 1
             if self.stage_count < 2:
                 self.transition()
             else:
                 self.game.switch_stage(DisplayMode.Gameplay)
 
-        
         self.execute_input()
         pygame.draw.rect(self.screen, parameters.colors['grey'],
                          (610, 0, 390, 500))

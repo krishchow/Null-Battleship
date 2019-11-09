@@ -16,7 +16,6 @@ class GameView:
         self.screen = None
         self.clock = pygame.time.Clock()
 
-
     def on_execute(self) -> None:
         """
         Run the game until the game ends.

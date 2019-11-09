@@ -45,5 +45,5 @@ class Tile:
                          board_params['cell_height']))
 
     def draw_image(self, screen, x, y):
-        direction = self.anchor
+        # direction = self.anchor
         pass
