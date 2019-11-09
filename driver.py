@@ -50,8 +50,14 @@ class Main:
 def get_ship(ship_num: int) -> ShipAbstract:
     if ship_num == 5:
         return Carrier()
+    elif ship_num == 4:
+        return Battleship()
+    elif ship_num == 3:
+        return Cruiser()
     elif ship_num == 2:
         return Destroyer()
+    elif ship_num == 1:
+        return Scout()
     else:
         return None
 
