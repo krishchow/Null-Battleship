@@ -27,7 +27,7 @@ class Board:
                     anchor_points.append((self.grid[row][column],
                                           xpos+offx, ypos+offy))
         for point, x, y in anchor_points:
-            point.draw_image(screen, x, y, point.anchor[1])
+            point.draw_image(screen, x, y)
 
     def is_ship(self, row, col):
         return (self.validate_pos(row, col) and
@@ -69,8 +69,9 @@ class Board:
                     positons.append((row, i))
 
         for i in positons:
-            self.grid[i[0]][i[1]].add_ship(ship)
+            self.grid.get(row,column).add_ship(ship)
 
+        self.get(row, column).anchor = direction
         return True
 
     def add_attack(self, row: int, column: int):
