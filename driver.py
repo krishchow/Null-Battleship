@@ -2,7 +2,7 @@ from player import Player
 from view import GameView
 from board import Board
 from util.enums import Direction
-from ship import ShipAbstract, Destroyer, Carrier
+from ship import ShipAbstract, Destroyer, Carrier, Cruiser, Battleship, Scout
 
 
 class Main:
@@ -34,6 +34,8 @@ class Main:
 
     def parse(self, string) -> tuple:
         values = string.split()
+        if len(values) != 4:
+            raise ValueError
         row, col, ship_num = int(values[0]), int(values[1]), int(values[2])
         direction = None
         if values[3] == 'L':

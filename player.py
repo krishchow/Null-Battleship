@@ -7,7 +7,7 @@ class Player:
 
     def __init__(self, name: str):
         self.name = name
-        self.credits = 15
+        self.credits = 5
         self.number_of_ships = 0
         self.board = Board(self)
 
