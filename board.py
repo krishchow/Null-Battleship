@@ -76,7 +76,7 @@ class Board:
     
 
     def is_ship(self, row, col):
-        return self.get(row, col) and self.get(row, col).current_value
+        return self.validate_pos(row, col) and bool(self.get(row, col).current_value)
 
     def get(self, row, col) -> Tile:
         if self.validate_pos(row, col):
@@ -103,12 +103,12 @@ class Board:
 
         for i in range(start, end, d):
             if direction in (Direction.DOWN, Direction.UP):
-                if not self.is_ship(i, column):
+                if self.is_ship(i, column):
                     return False
                 else:
                     positions.append((i, column))
             else:
-                if not self.is_ship(row, i):
+                if self.is_ship(row, i):
                     return False
                 else:
                     positions.append((row, i))
@@ -123,8 +123,10 @@ class Board:
         if not self.validate_pos(row, column):
             return False
         self.grid[row][column].register_hit()
+        return True
 
     def add_scout(self, row: int, column: int):
         if not self.validate_pos(row, column):
             return False
         self.grid[row][column].register_scout()
+        return True

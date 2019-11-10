@@ -22,7 +22,7 @@ class Tile:
     def register_hit(self):
         if not self.is_hit:
             self.is_hit = True
-            if self.current_value:
+            if bool(self.current_value):
                 self.current_value.register_hit()
 
     def register_scout(self):
@@ -32,7 +32,10 @@ class Tile:
         color = None
         # this needs to be replaced with sprites
         if self.is_hit:
-            color = colors['red']
+            if bool(self.current_value):
+                color = colors['orange']
+            else:
+                color = colors['red']
         elif target == self.player or self.is_scouted:
             if self.current_value:
                 color = colors['green']
@@ -40,6 +43,8 @@ class Tile:
                 color = colors['white']
         else:
             color = colors['white']
+        if bool(self.current_value) and self.current_value.is_sunk:
+            color = colors['black']
         pygame.draw.rect(screen, color, (x, y,
                          board_params['cell_width'],
                          board_params['cell_height']))

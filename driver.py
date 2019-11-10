@@ -24,6 +24,9 @@ class Main:
 
     def current_board(self) -> Board:
         return self.player_one.board
+    
+    def other_board(self) -> Board:
+        return self.player_two.board
 
     def switch_stage(self, new_stage: DisplayMode, new_page=None):
         if new_stage == DisplayMode.Title:
@@ -43,13 +46,13 @@ class Main:
     def set_page(self, stage: p.Stage):
         self.view.current_page = stage
 
-    def add_ship(self, row, col, direction, ship: ShipAbstract) -> bool:
+    def add_ship(self, row, col, direction, ship: ShipAbstract) -> None:
         # need input verification, parsing and then passed to player board
         if self.current_player().credits >= ship.cost:
             if self.current_board().add_ship(row, col, direction, ship):
                 self.current_player().deduct_cost(ship.cost)
 
-    def parse(self, string) -> tuple:
+    def parse_select(self, string) -> tuple:
         values = string.split()
         if len(values) != 4:
             raise ValueError
@@ -64,6 +67,12 @@ class Main:
         elif values[3] == 'D':
             direction = Direction.DOWN
         return (row, col, direction, get_ship(ship_num))
+
+    def make_attack(self, row, col):
+        return self.other_board().add_attack(row, col)
+
+    def make_scout(self, row, col):
+        return self.other_board().add_scout(row, col)
 
 
 def get_ship(ship_num: int) -> ShipAbstract:

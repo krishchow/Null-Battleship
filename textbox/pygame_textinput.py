@@ -64,10 +64,13 @@ class TextInput:
         self.cursor_visible = True  # Switches every self.cursor_switch_ms ms
         self.cursor_switch_ms = 500  # /|\
         self.cursor_ms_counter = 0
+        self.lock = False
 
         self.clock = pygame.time.Clock()
 
     def update(self, events):
+        if self.lock:
+            return False
         for event in events:
             if event.type == pygame.KEYDOWN:
                 self.cursor_visible = True  # So the user sees where he writes
@@ -163,6 +166,7 @@ class TextInput:
         self.clear_text()
         self.input_string = new_str
         self.base_length = len(new_str)
+        self.cursor_position = len(new_str)
 
     def get_text(self):
         return self.input_string

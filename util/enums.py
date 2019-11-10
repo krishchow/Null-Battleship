@@ -15,3 +15,9 @@ class DisplayMode(Enum):
     GameOver = 3
     BotSelection = 4
     Transiton = 5
+
+
+class AttackStage(Enum):
+    Selection = 0
+    Scouts = 1
+    Attacks = 2
