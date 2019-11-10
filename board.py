@@ -31,6 +31,14 @@ class Board:
             point.draw_image(screen, x, y)
 
     def get_map_view(self, curr_screen, xpos, ypos):
+        """
+        xpos & ypos: represent bounding box of the maps.
+        curr_screen: represents the parent view the map subiew is presented in.
+
+        This is not so elegant, we'll need to add a method to handle hits/misses,
+        your oponents board would be the data source for these methods
+        """
+        #data source
         grid = []
         width = 20
         height = 20
@@ -39,14 +47,26 @@ class Board:
             grid.append([])
             for column in range(8):
                 grid[row].append(0)
-        
-        #This is a test, we'll need to add a method to handle hits
+
+        #1's represent hits and are red
         grid[1][5] = 1
+        #2's represent misses and are blue
+        grid[3][6] = 2
+
+        #draw grid
         for row in range(8):
             for column in range(8):
                 color = parameters.colors['white']
                 if grid[row][column] == 1:
                     color = parameters.colors['red']
+                pygame.draw.rect(curr_screen,
+                                color,
+                                [((margin + width) * column + margin)+xpos,
+                                ((margin + height) * row + margin)+ypos,
+                                width,
+                                height])
+                if grid[row][column] == 2:
+                    color = parameters.colors['blue']
                 pygame.draw.rect(curr_screen,
                                 color,
                                 [((margin + width) * column + margin)+xpos,
