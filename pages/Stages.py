@@ -107,7 +107,7 @@ class SelectionPage(TStage):
         pygame.draw.rect(self.screen, parameters.colors['grey'],
                          (610, 0, 390, 500))
         #drawing map
-        self.game.current_board().get_map_view(self.screen, 750, 0)
+        self.game.current_board().get_map_view(self.screen, 720, 0)
         self.credits.text = "credits: " + \
                             str(self.game.current_player().credits)
         self.credits.render(self.screen)
