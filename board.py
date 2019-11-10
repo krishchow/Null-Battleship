@@ -3,7 +3,8 @@ from ship import ShipAbstract
 from util.enums import Direction
 from typing import List
 from util.parameters import board_params
-
+from util import parameters
+import pygame
 
 class Board:
     grid: List[List[Tile]]
@@ -28,6 +29,31 @@ class Board:
                                           xpos + offx, ypos + offy))
         for point, x, y in anchor_points:
             point.draw_image(screen, x, y)
+
+    def get_map_view(self, curr_screen, xpos, ypos):
+        grid = []
+        width = 20
+        height = 20
+        margin = 2
+        for row in range(8):
+            grid.append([])
+            for column in range(8):
+                grid[row].append(0)
+        
+        #This is a test, we'll need to add a method to handle hits
+        grid[1][5] = 1
+        for row in range(8):
+            for column in range(8):
+                color = parameters.colors['white']
+                if grid[row][column] == 1:
+                    color = parameters.colors['red']
+                pygame.draw.rect(curr_screen,
+                                color,
+                                [((margin + width) * column + margin)+xpos,
+                                ((margin + height) * row + margin)+ypos,
+                                width,
+                                height])
+    
 
     def is_ship(self, row, col):
         return self.get(row, col) and self.get(row, col).current_value

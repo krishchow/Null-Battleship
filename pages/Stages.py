@@ -93,6 +93,7 @@ class SelectionPage(TStage):
         self.credits = Button(500, 20, 100, 30, base_string)
         self.credits.bg = self.bg
 
+    
     def render(self):
         self.screen.fill(self.bg)
         if self.game.current_player().is_done():
@@ -105,6 +106,8 @@ class SelectionPage(TStage):
         self.execute_input()
         pygame.draw.rect(self.screen, parameters.colors['grey'],
                          (610, 0, 390, 500))
+        #drawing map
+        self.game.current_board().get_map_view(self.screen, 750, 0)
         self.credits.text = "credits: " + \
                             str(self.game.current_player().credits)
         self.credits.render(self.screen)
