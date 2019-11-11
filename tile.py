@@ -28,6 +28,9 @@ class Tile:
     def register_scout(self):
         self.is_scouted = True
 
+    def has_ship(self):
+        return bool(self.current_value)
+
     def render(self, screen, x, y, target):
         color = None
         # this needs to be replaced with sprites
@@ -36,14 +39,11 @@ class Tile:
                 color = colors['orange']
             else:
                 color = colors['red']
-        elif target == self.player or self.is_scouted:
-            if self.current_value:
-                color = colors['green']
-            else:
-                color = colors['white']
+        elif (target == self.player or self.is_scouted) and self.has_ship():
+            color = colors['green']
         else:
             color = colors['white']
-        if bool(self.current_value) and self.current_value.is_sunk:
+        if self.has_ship() and self.current_value.is_sunk:
             color = colors['black']
         pygame.draw.rect(screen, color, (x, y,
                          board_params['cell_width'],

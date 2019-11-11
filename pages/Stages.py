@@ -34,11 +34,11 @@ class TStage(Stage):
     def _timed(self):
         time.sleep(1.5)
         self.transition()
-        print('done')
 
     def timed_transiton(self):
         t = threading.Thread(target = self._timed)
         t.start()
+        
 
 class TitlePage(Stage):
     def switch_stage(self):
@@ -80,7 +80,11 @@ class GameplayPage(TStage):
 
     def switch_stage(self):
         self.transition()
-        
+    
+    def _timed(self):
+        time.sleep(1.5)
+        self.transition()
+        self.tb.lock = False
 
     def render(self):
         self.screen.fill(self.bg)
@@ -89,23 +93,16 @@ class GameplayPage(TStage):
         self.game.other_board().get_view(self.screen,
                                            530, 10, self.game.current_player())
         self.execute_events()
-        self.screen.blit(self.tb.get_surface(), (10, 450))                              
+        self.screen.blit(self.tb.get_surface(), (10, 450))
 
     def execute_events(self):
         if self.tb.update(self.events):
             self.parse_input()
-        
         self.events = []
 
-
     def parse_input(self):
-        values = None
-        try:
-            values = self.tb.get_user_text().split()
-            values = tuple((int(i) for i in values))
-        except:
-            values = None
-        if values and len(values) == 2:
+        values = self.game.parse_game(self.tb.get_user_text())
+        if values:
             if self.state == AttackStage.Selection: self.selection_operation(values)
             elif self.state == AttackStage.Scouts: self.scout_operation(values)
             elif self.state == AttackStage.Attacks: self.attack_operation(values)
@@ -144,10 +141,10 @@ class GameplayPage(TStage):
             self.state = AttackStage.Attacks
         else:
             self.state = AttackStage.Selection
-            self.tb.modify_base_string('CHOOSE SHIP ROW|COL: ')
+            self.tb.clear_user_text()
             self.tb.lock = True
+            self.tb.modify_base_string('CHOOSE SHIP ROW|COL: ')
             self.timed_transiton()
-            self.tb.lock = False
 
     def handle_events(self, events):
         self.events = events
@@ -180,27 +177,18 @@ class SelectionPage(TStage):
         self.execute_input()
         pygame.draw.rect(self.screen, parameters.colors['grey'],
                          (610, 0, 390, 500))
-
         # drawing map
         # self.game.current_board().get_map_view(self.screen, 720, 0)
-
         self.credits.text = "credits: " + \
                             str(self.game.current_player().credits)
-
         self.credits.render(self.screen)
-
         self.game.current_board().get_view(self.screen,
                                            50, 10, self.game.current_player())
-
         self.screen.blit(self.tb.get_surface(), (10, 450))
 
     def execute_input(self):
         if self.tb.update(self.events):
-            values = None
-            try:
-                values = self.game.parse_select(self.tb.get_user_text())
-            except ValueError:
-                values = None
+            values = self.game.parse_select(self.tb.get_user_text())
             if values:
                 self.game.add_ship(*values)
                 self.tb.clear_user_text()

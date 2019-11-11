@@ -4,13 +4,15 @@ from board import Board
 from util.enums import Direction, DisplayMode
 from ship import ShipAbstract, Destroyer, Carrier, Cruiser, Battleship, Scout
 import pages.Stages as p
-
+import re
 
 class Main:
     def __init__(self, player_one: str, player_two: str):
         self.player_one = Player(player_one)
         self.player_two = Player(player_two)
         self.view = GameView(self)
+        self.select_match = re.compile(r'^([0-7])\s([0-7])\s([0-7])\s([LRUDlrud])\s*$')
+        self.game_match = re.compile(r'^([0-7])\s([0-7])\s*$')
 
     def play(self):
         # Note: Switch the 'DisplayMode' enum type before use.
@@ -53,20 +55,27 @@ class Main:
                 self.current_player().deduct_cost(ship.cost)
 
     def parse_select(self, string) -> tuple:
-        values = string.split()
-        if len(values) != 4:
-            raise ValueError
-        row, col, ship_num = int(values[0]), int(values[1]), int(values[2])
+        match = self.select_match.match(string)
+        if not bool(match):
+            return None
+        row, col, ship_num, d_string = match.groups()
+        row, col, ship_num = int(row), int(col), int(ship_num)
         direction = None
-        if values[3] == 'L':
+        if d_string == 'L':
             direction = Direction.LEFT
-        elif values[3] == 'R':
+        elif d_string == 'R':
             direction = Direction.RIGHT
-        elif values[3] == 'U':
+        elif d_string == 'U':
             direction = Direction.UP
-        elif values[3] == 'D':
+        elif d_string == 'D':
             direction = Direction.DOWN
         return (row, col, direction, get_ship(ship_num))
+    
+    def parse_game(self, string) -> tuple:
+        match = self.game_match.match(string)
+        if not bool(match):
+            return None
+        return tuple(map(int, match.groups()))
 
     def make_attack(self, row, col):
         return self.other_board().add_attack(row, col)
