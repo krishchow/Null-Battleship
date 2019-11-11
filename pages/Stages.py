@@ -221,9 +221,10 @@ class Transiton(Stage):
     def __init__(self, screen: pygame.Surface, game, next_stage: TStage):
         super().__init__(screen, game)
         self.next_stage = next_stage
+        self.bg = Image(0, 0, "sprites/island.jpg")
 
     def render(self):
-        self.screen.fill(parameters.colors["lightgrey"])
+        self.bg.render(self.screen)
 
     def handle_events(self, events):
         for event in events:
