@@ -6,6 +6,13 @@ from ship import ShipAbstract, Destroyer, Carrier, Cruiser, Battleship, Scout
 import pages.Stages as p
 import re
 
+direction_map = {
+    'L': Direction.LEFT,
+    'R': Direction.RIGHT,
+    'D': Direction.DOWN,
+    'U': Direction.UP
+}
+
 class Main:
     def __init__(self, player_one: str, player_two: str):
         self.player_one = Player(player_one)
@@ -60,15 +67,7 @@ class Main:
             return None
         row, col, ship_num, d_string = match.groups()
         row, col, ship_num = int(row), int(col), int(ship_num)
-        direction = None
-        if d_string == 'L':
-            direction = Direction.LEFT
-        elif d_string == 'R':
-            direction = Direction.RIGHT
-        elif d_string == 'U':
-            direction = Direction.UP
-        elif d_string == 'D':
-            direction = Direction.DOWN
+        direction = direction_map.get(d_string, None)
         return (row, col, direction, get_ship(ship_num))
     
     def parse_game(self, string) -> tuple:
