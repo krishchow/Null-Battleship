@@ -5,7 +5,7 @@ from util import parameters
 from textbox.pygame_textinput import TextInput
 import threading
 import time
-
+from ai_player import AI
 class Stage:
     def __init__(self, screen: pygame.Surface, game):
         self.clickables = []
@@ -38,7 +38,7 @@ class TStage(Stage):
     def timed_transiton(self):
         t = threading.Thread(target = self._timed)
         t.start()
-        
+
 
 class TitlePage(Stage):
     def switch_stage(self):
@@ -80,7 +80,7 @@ class GameplayPage(TStage):
 
     def switch_stage(self):
         self.transition()
-    
+
     def _timed(self):
         time.sleep(1.5)
         self.transition()
@@ -106,7 +106,7 @@ class GameplayPage(TStage):
             if self.state == AttackStage.Selection: self.selection_operation(values)
             elif self.state == AttackStage.Scouts: self.scout_operation(values)
             elif self.state == AttackStage.Attacks: self.attack_operation(values)
-    
+
     def selection_operation(self, values):
         if not self.game.current_board().is_ship(*values):
             return
@@ -115,7 +115,7 @@ class GameplayPage(TStage):
         self.sc = ship.num_scouts
         self.ac = ship.num_attacks
         self.swap_state()
-    
+
     def scout_operation(self, values):
         if not self.game.make_scout(*values):
             return
@@ -123,7 +123,7 @@ class GameplayPage(TStage):
         self.sc-=1
         if self.sc == 0:
            self.swap_state()
-    
+
     def attack_operation(self, values):
         if not self.game.make_attack(*values):
             return
@@ -152,6 +152,7 @@ class GameplayPage(TStage):
     def re_enter(self):
         self.game.swap_turn()
 
+
 class SelectionPage(TStage):
     def __init__(self, screen: pygame.Surface, game):
         super().__init__(screen, game)
@@ -164,7 +165,7 @@ class SelectionPage(TStage):
         base_string = "credits: " + str(self.game.current_player().credits)
         self.credits = Button(500, 20, 100, 30, base_string)
         self.credits.bg = self.bg
-    
+
     def render(self):
         self.screen.fill(self.bg)
         if self.game.current_player().is_done():
@@ -203,19 +204,44 @@ class SelectionPage(TStage):
         self.tb.clear_user_text()
 
 
-class BotSelectionPage(TStage):
+class BotGameplayPage(GameplayPage):
+    pass
+
+
+class BotSelectionPage(SelectionPage):
+    def __init__(self, screen: pygame.Surface, game):
+        super().__init__(screen, game)
+        self.stage_count = 0
+        self.events = []
+        self.bg = parameters.colors['lightgrey']
+        self.game.player_two = AI()
+
+    def re_enter(self):
+        self.events = []
+        self.tb.clear_user_text()
+
     def render(self):
-        self.screen.fill(parameters.colors["lightgrey"])
+        self.screen.fill(self.bg)
+        if self.game.current_player().is_done():
+            self.game.player_two.ship_placement()
+            self.game.switch_stage(DisplayMode.BotGameplay)
+
+        self.execute_input()
         pygame.draw.rect(self.screen, parameters.colors['grey'],
                          (610, 0, 390, 500))
+        # drawing map
+        # self.game.current_board().get_map_view(self.screen, 720, 0)
+        self.credits.text = "credits: " + \
+                            str(self.game.current_player().credits)
+        self.credits.render(self.screen)
         self.game.current_board().get_view(self.screen,
                                            50, 10, self.game.current_player())
+        self.screen.blit(self.tb.get_surface(), (10, 450))
 
 
 class GameOver(Stage):
     def render(self):
         self.screen.fill(parameters.colors["grey"])
-
 
 class Transiton(Stage):
     def __init__(self, screen: pygame.Surface, game, next_stage: TStage):

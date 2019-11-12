@@ -1,3 +1,4 @@
+from ai_player import AI
 from player import Player
 from view import GameView
 from board import Board
@@ -33,7 +34,7 @@ class Main:
 
     def current_board(self) -> Board:
         return self.player_one.board
-    
+
     def other_board(self) -> Board:
         return self.player_two.board
 
@@ -50,6 +51,8 @@ class Main:
             self.set_page(new_page)
         elif new_stage == DisplayMode.GameOver:
             self.set_page(p.GameOver(self.view.screen, self))
+        elif new_stage == DisplayMode.BotGameplay:
+            self.set_page(p.BotGameplayPage(self.view.screen, self))
         self.view.current_page.switch_stage()
 
     def set_page(self, stage: p.Stage):
@@ -69,7 +72,7 @@ class Main:
         row, col, ship_num = int(row), int(col), int(ship_num)
         direction = direction_map.get(d_string, None)
         return (row, col, direction, get_ship(ship_num))
-    
+
     def parse_game(self, string) -> tuple:
         match = self.game_match.match(string)
         if not bool(match):
