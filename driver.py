@@ -62,6 +62,7 @@ class Main:
         if self.current_player().credits >= ship.cost:
             if self.current_board().add_ship(row, col, direction, ship):
                 self.current_player().deduct_cost(ship.cost)
+    
 
     def parse_select(self, string) -> tuple:
         match = self.select_match.match(string)
@@ -103,4 +104,4 @@ def get_ship(ship_num: int) -> ShipAbstract:
 if __name__ == '__main__':
     game = Main('Player 1', 'Player 2')
     game.play()
-    # while game is not over, keep looping through this process -> instructions
+    game.on_execute()

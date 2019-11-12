@@ -45,8 +45,16 @@ class GameView:
         Check for win/lose conditions
         """
         raise NotImplementedError
+        
+      ##  if game_over():
+        ##    GameOver.results()
+          ##  on_cleanup()
+        ##play()
 
     def on_cleanup(self) -> None:
+        ''' 
+        Cleanup and close game
+        '''
         pygame.quit()
 
     def play(self):
