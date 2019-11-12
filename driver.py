@@ -1,3 +1,4 @@
+from ai_player import AI
 from player import Player
 from view import GameView
 from board import Board
@@ -10,7 +11,7 @@ direction_map = {
     'L': Direction.LEFT,
     'R': Direction.RIGHT,
     'D': Direction.DOWN,
-    'U': Direction.UP
+    'U': Direction.UP,
 }
 
 class Main:
@@ -20,8 +21,6 @@ class Main:
         self.view = GameView(self)
         self.select_match = re.compile(r'^([0-7])\s([0-7])\s([0-7])\s([LRUDlrud])\s*$')
         self.game_match = re.compile(r'^([0-7])\s([0-7])\s*$')
-
-    #Hello world
 
     def play(self):
         # Note: Switch the 'DisplayMode' enum type before use.
@@ -35,7 +34,7 @@ class Main:
 
     def current_board(self) -> Board:
         return self.player_one.board
-    
+
     def other_board(self) -> Board:
         return self.player_two.board
 
@@ -52,6 +51,8 @@ class Main:
             self.set_page(new_page)
         elif new_stage == DisplayMode.GameOver:
             self.set_page(p.GameOver(self.view.screen, self))
+        elif new_stage == DisplayMode.BotGameplay:
+            self.set_page(p.BotGameplayPage(self.view.screen, self))
         self.view.current_page.switch_stage()
 
     def set_page(self, stage: p.Stage):
@@ -70,9 +71,9 @@ class Main:
             return None
         row, col, ship_num, d_string = match.groups()
         row, col, ship_num = int(row), int(col), int(ship_num)
-        direction = direction_map.get(d_string, None)
+        direction = direction_map.get(d_string.upper(), None)
         return (row, col, direction, get_ship(ship_num))
-    
+
     def parse_game(self, string) -> tuple:
         match = self.game_match.match(string)
         if not bool(match):
