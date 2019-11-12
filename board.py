@@ -73,7 +73,6 @@ class Board:
                                 ((margin + height) * row + margin)+ypos,
                                 width,
                                 height])
-    
 
     def is_ship(self, row, col):
         return self.validate_pos(row, col) and bool(self.get(row, col).current_value)
@@ -89,6 +88,8 @@ class Board:
     def add_ship(self, row: int, column: int, direction: Direction,
                  ship: ShipAbstract):
         positions = []
+        if not self.get(row, column):
+            return False
         d, start, end = 0, 0, 0
         if direction == Direction.UP:
             d, start, end = -1, row, row - ship.vertical_length
