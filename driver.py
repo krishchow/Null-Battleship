@@ -21,6 +21,8 @@ class Main:
         self.select_match = re.compile(r'^([0-7])\s([0-7])\s([0-7])\s([LRUDlrud])\s*$')
         self.game_match = re.compile(r'^([0-7])\s([0-7])\s*$')
 
+    #Hello world
+
     def play(self):
         # Note: Switch the 'DisplayMode' enum type before use.
         self.view.play()
