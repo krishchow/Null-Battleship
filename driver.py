@@ -12,10 +12,6 @@ direction_map = {
     'R': Direction.RIGHT,
     'D': Direction.DOWN,
     'U': Direction.UP,
-    'l': Direction.LEFT,
-    'r': Direction.RIGHT,
-    'd': Direction.DOWN,
-    'u': Direction.UP
 }
 
 class Main:
@@ -25,8 +21,6 @@ class Main:
         self.view = GameView(self)
         self.select_match = re.compile(r'^([0-7])\s([0-7])\s([0-7])\s([LRUDlrud])\s*$')
         self.game_match = re.compile(r'^([0-7])\s([0-7])\s*$')
-
-    #Hello world
 
     def play(self):
         # Note: Switch the 'DisplayMode' enum type before use.
@@ -76,7 +70,7 @@ class Main:
             return None
         row, col, ship_num, d_string = match.groups()
         row, col, ship_num = int(row), int(col), int(ship_num)
-        direction = direction_map.get(d_string, None)
+        direction = direction_map.get(d_string.upper(), None)
         return (row, col, direction, get_ship(ship_num))
 
     def parse_game(self, string) -> tuple:
