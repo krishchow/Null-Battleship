@@ -10,7 +10,11 @@ direction_map = {
     'L': Direction.LEFT,
     'R': Direction.RIGHT,
     'D': Direction.DOWN,
-    'U': Direction.UP
+    'U': Direction.UP,
+    'l': Direction.LEFT,
+    'r': Direction.RIGHT,
+    'd': Direction.DOWN,
+    'u': Direction.UP
 }
 
 class Main:

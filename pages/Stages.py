@@ -6,6 +6,7 @@ from textbox.pygame_textinput import TextInput
 import threading
 import time
 
+
 class Stage:
     def __init__(self, screen: pygame.Surface, game):
         self.clickables = []
@@ -35,8 +36,8 @@ class TStage(Stage):
         time.sleep(1.5)
         self.transition()
 
-    def timed_transiton(self):
-        t = threading.Thread(target = self._timed)
+    def timed_transition(self):
+        t = threading.Thread(target=self._timed)
         t.start()
         
 
@@ -76,7 +77,8 @@ class GameplayPage(TStage):
         self.ship = None
         self.events = []
         self.move_queue = []
-        self.tb = TextInput(initial_string="CHOOSE SHIP ROW|COL: ", max_width=950)
+        self.tb = TextInput(initial_string="CHOOSE SHIP ROW|COL: ",
+                            max_width=950)
 
     def switch_stage(self):
         self.transition()
@@ -91,7 +93,7 @@ class GameplayPage(TStage):
         self.game.current_board().get_view(self.screen,
                                            50, 10, self.game.current_player())
         self.game.other_board().get_view(self.screen,
-                                           530, 10, self.game.current_player())
+                                         530, 10, self.game.current_player())
         self.execute_events()
         self.screen.blit(self.tb.get_surface(), (10, 450))
 
@@ -103,9 +105,13 @@ class GameplayPage(TStage):
     def parse_input(self):
         values = self.game.parse_game(self.tb.get_user_text())
         if values:
-            if self.state == AttackStage.Selection: self.selection_operation(values)
-            elif self.state == AttackStage.Scouts: self.scout_operation(values)
-            elif self.state == AttackStage.Attacks: self.attack_operation(values)
+            if self.state == AttackStage.Selection:
+                self.selection_operation(values)
+            elif self.state == AttackStage.Scouts: 
+                self.scout_operation(values)
+            elif self.state == AttackStage.Attacks: 
+                self.attack_operation(values)
+        self.tb.clear_user_text()
     
     def selection_operation(self, values):
         if not self.game.current_board().is_ship(*values):
@@ -119,16 +125,14 @@ class GameplayPage(TStage):
     def scout_operation(self, values):
         if not self.game.make_scout(*values):
             return
-        self.tb.clear_user_text()
-        self.sc-=1
+        self.sc -= 1
         if self.sc == 0:
-           self.swap_state()
+            self.swap_state()
     
     def attack_operation(self, values):
         if not self.game.make_attack(*values):
             return
-        self.tb.clear_user_text()
-        self.ac-=1
+        self.ac -= 1
         if self.ac == 0:
             self.swap_state()
 
@@ -141,16 +145,16 @@ class GameplayPage(TStage):
             self.state = AttackStage.Attacks
         else:
             self.state = AttackStage.Selection
-            self.tb.clear_user_text()
             self.tb.lock = True
             self.tb.modify_base_string('CHOOSE SHIP ROW|COL: ')
-            self.timed_transiton()
+            self.timed_transition()
 
     def handle_events(self, events):
         self.events = events
 
     def re_enter(self):
         self.game.swap_turn()
+
 
 class SelectionPage(TStage):
     def __init__(self, screen: pygame.Surface, game):
@@ -160,7 +164,8 @@ class SelectionPage(TStage):
         self.bg = parameters.colors['lightgrey']
 
     def switch_stage(self):
-        self.tb = TextInput(initial_string="ROW COL SHIP DIRECTION: ", max_width=600)
+        self.tb = TextInput(initial_string="ROW COL SHIP DIRECTION: ",
+                            max_width=600)
         base_string = "credits: " + str(self.game.current_player().credits)
         self.credits = Button(500, 20, 100, 30, base_string)
         self.credits.bg = self.bg
@@ -191,7 +196,7 @@ class SelectionPage(TStage):
             values = self.game.parse_select(self.tb.get_user_text())
             if values:
                 self.game.add_ship(*values)
-                self.tb.clear_user_text()
+            self.tb.clear_user_text()
         self.events = []
 
     def handle_events(self, events):
