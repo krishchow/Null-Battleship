@@ -27,7 +27,27 @@ class Main:
         self.view.play()
 
     def swap_turn(self) -> None:
+        
         self.player_one, self.player_two = self.player_two, self.player_one
+        
+        
+    def judge(self, player_one, player_two):      ## zeina: needs to be implemented      
+        '''
+        Returns a list with the first index being the winner and the second index being the loser.
+        '''
+        results = []
+        #print ("lol")
+        if player_one.number_of_ships == 0:
+            results.append(player_two)
+            results.append(player_one)
+        elif player_two.number_of_ships == 0: 
+            results.append(player_one)
+            results.append(player_two)
+        else: 
+            play()          #else keep playing 
+
+    def game_over(self, player_one, player_two) -> bool :       #not sure if its a necessary function to have
+        return (player_one.number_of_ships == 0 or player_two.number_of_ships == 0)
 
     def current_player(self) -> Player:
         return self.player_one
@@ -59,7 +79,8 @@ class Main:
         self.view.current_page = stage
 
     def add_ship(self, row, col, direction, ship: ShipAbstract) -> None:
-        # need input verification, parsing and then passed to player board
+        #while row pygame.font.init()
+        #  need input verification, parsing and then passed to player board
         if self.current_player().credits >= ship.cost:
             if self.current_board().add_ship(row, col, direction, ship):
                 self.current_player().deduct_cost(ship.cost)
@@ -68,6 +89,7 @@ class Main:
     def parse_select(self, string) -> tuple:
         match = self.select_match.match(string)
         if not bool(match):
+            print("Syntactically Incorrect")     #TODO: Zeina -- make a Stage 
             return None
         row, col, ship_num, d_string = match.groups()
         row, col, ship_num = int(row), int(col), int(ship_num)
@@ -77,6 +99,7 @@ class Main:
     def parse_game(self, string) -> tuple:
         match = self.game_match.match(string)
         if not bool(match):
+            print("Syntactically Incorrect")        #Zeina: add stage
             return None
         return tuple(map(int, match.groups()))
 

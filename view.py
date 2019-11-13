@@ -26,8 +26,10 @@ class GameView:
             self.parse_events()
             self.current_page.render()
             pygame.display.update()
+            self.on_loop()
             self.clock.tick(30)
         self.on_cleanup()
+
 
     def on_init(self) -> None:
         """
@@ -48,6 +50,7 @@ class GameView:
         
       ##  if game_over():
         ##    GameOver.results()
+        ## call on judge 
           ##  on_cleanup()
         ##play()
 

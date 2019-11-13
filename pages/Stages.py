@@ -189,8 +189,8 @@ class SelectionPage(TStage):
     def execute_input(self):
         if self.tb.update(self.events):
             values = self.game.parse_select(self.tb.get_user_text())
-            if values:
-                self.game.add_ship(*values)
+            if not values or not self.game.add_ship(*values):
+                print('logically Incorrect')
             self.tb.clear_user_text()
         self.events = []
 
