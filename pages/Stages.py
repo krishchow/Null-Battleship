@@ -190,7 +190,7 @@ class SelectionPage(TStage):
         if self.tb.update(self.events):
             values = self.game.parse_select(self.tb.get_user_text())
             if not values or not self.game.add_ship(*values):
-                print('logically Incorrect')
+                print('Ship is out of bounds (even if coordinates are valid)')
             self.tb.clear_user_text()
         self.events = []
 
