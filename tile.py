@@ -5,9 +5,9 @@ from util.enums import Direction
 
 direction_angle = {
     Direction.UP: 0,
-    Direction.RIGHT: 90,
+    Direction.RIGHT: 270,
     Direction.DOWN: 180,
-    Direction.LEFT: 270
+    Direction.LEFT: 90
 }
 
 class Tile:
