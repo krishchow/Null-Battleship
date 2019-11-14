@@ -1,3 +1,13 @@
+import pygame
+
+images = {
+    5: pygame.image.load('sprites/5.png'),
+    4: pygame.image.load('sprites/4.png'),
+    3: pygame.image.load('sprites/3.png'),
+    2: pygame.image.load('sprites/2.png'),
+    1: pygame.image.load('sprites/1.png')
+}
+
 class ShipAbstract:
     total_ships = 5
 
@@ -41,6 +51,7 @@ class Carrier(ShipAbstract):
         self.vertical_length, self.horizontal_length = 5, 1
         self.cost = 5
         self.total_alive = self.get_total()
+        self.sprite = images[self.id].copy()
 
 
 class Battleship(ShipAbstract):
@@ -51,33 +62,37 @@ class Battleship(ShipAbstract):
         self.vertical_length, self.horizontal_length = 4, 1
         self.cost = 4
         self.total_alive = self.get_total()
+        self.sprite = images[self.id].copy()
 
 
 class Cruiser(ShipAbstract):
     def __init__(self):
         super().__init__()
         self.id = 3
-        self.num_scouts, self.num_attacks = 1, 1
+        self.num_scouts, self.num_attacks = 2, 1
         self.vertical_length, self.horizontal_length = 3, 1
         self.cost = 3
         self.total_alive = self.get_total()
+        self.sprite = images[self.id].copy()
 
 
 class Destroyer(ShipAbstract):
     def __init__(self):
         super().__init__()
         self.id = 2
-        self.num_scouts, self.num_attacks = 0, 1
+        self.num_scouts, self.num_attacks = 1, 1
         self.vertical_length, self.horizontal_length = 2, 1
         self.cost = 2
         self.total_alive = self.get_total()
+        self.sprite = images[self.id].copy()
 
 
 class Scout(ShipAbstract):
     def __init__(self):
         super().__init__()
         self.id = 1
-        self.num_scouts, self.num_attacks = 1, 0
+        self.num_scouts, self.num_attacks = 0, 1
         self.vertical_length, self.horizontal_length = 1, 1
         self.cost = 1
         self.total_alive = self.get_total()
+        self.sprite = images[self.id].copy()

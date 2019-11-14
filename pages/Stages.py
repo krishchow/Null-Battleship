@@ -90,9 +90,9 @@ class GameplayPage(TStage):
     def render(self):
         self.screen.fill(self.bg)
         self.game.current_board().get_view(self.screen,
-                                           50, 10, self.game.current_player())
+                                           50, 20, self.game.current_player())
         self.game.other_board().get_view(self.screen,
-                                         530, 10, self.game.current_player())
+                                         530, 20, self.game.current_player())
         self.execute_events()
         self.screen.blit(self.tb.get_surface(), (10, 450))
 
@@ -183,14 +183,14 @@ class SelectionPage(TStage):
                             str(self.game.current_player().credits)
         self.credits.render(self.screen)
         self.game.current_board().get_view(self.screen,
-                                           50, 10, self.game.current_player())
-        self.screen.blit(self.tb.get_surface(), (10, 450))
+                                           50, 20, self.game.current_player())
+        self.screen.blit(self.tb.get_surface(), (20, 450))
 
     def execute_input(self):
         if self.tb.update(self.events):
             values = self.game.parse_select(self.tb.get_user_text())
             if not values or not self.game.add_ship(*values):
-                print('logically Incorrect')
+                print('Ship is out of bounds (even if coordinates are valid)')
             self.tb.clear_user_text()
         self.events = []
 
@@ -234,7 +234,7 @@ class BotSelectionPage(SelectionPage):
                             str(self.game.current_player().credits)
         self.credits.render(self.screen)
         self.game.current_board().get_view(self.screen,
-                                           50, 10, self.game.current_player())
+                                           50, 20, self.game.current_player())
         self.screen.blit(self.tb.get_surface(), (10, 450))
 
 

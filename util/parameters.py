@@ -13,5 +13,5 @@ board_params = {
     "window_size": (1000, 500),
     "cell_width": 50,
     "cell_height": 50,
-    "margin": 2
+    "margin": 1
 }
