@@ -1,6 +1,6 @@
 from board import Board
 import pygame
-
+import ship as S
 
 class Player:
     icon: pygame.Surface     # initialized use of image for object
@@ -16,3 +16,20 @@ class Player:
 
     def is_done(self) -> bool:
         return self.credits == 0
+
+    def add_ship(self, row, col, direction, ship: S.ShipAbstract) -> None:
+        # while row pygame.font.init()
+        #  need input verification, parsing and then passed to player board
+        if self.credits >= ship.cost:
+            if self.board.add_ship(row, col, direction, ship):
+                self.credits -= ship.cost
+                self.number_of_ships += 1
+                return True
+        return False
+
+    def add_attack(self, row, col) -> None:
+        if self.board.add_attack(row, col):
+            if self.board.is_sunk(row, col):
+                self.number_of_ships -= 1
+            return True
+        return False

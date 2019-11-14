@@ -30,7 +30,6 @@ class GameView:
             self.clock.tick(30)
         self.on_cleanup()
 
-
     def on_init(self) -> None:
         """
         Initialize the game's screen, and begin running the game.
@@ -46,16 +45,11 @@ class GameView:
         """
         Check for win/lose conditions
         """
-        raise NotImplementedError
-        
-      ##  if game_over():
-        ##    GameOver.results()
-        ## call on judge 
-          ##  on_cleanup()
-        ##play()
+        if self.game.on_loop():
+            self._running = False
 
     def on_cleanup(self) -> None:
-        ''' 
+        '''
         Cleanup and close game
         '''
         pygame.quit()

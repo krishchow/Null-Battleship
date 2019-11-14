@@ -77,6 +77,9 @@ class Board:
     def is_ship(self, row, col):
         return self.validate_pos(row, col) and bool(self.get(row, col).current_value)
 
+    def is_sunk(self, row, col):
+        return self.is_ship(row, col) and self.get(row, col).is_sunk()
+
     def get(self, row, col) -> Tile:
         if self.validate_pos(row, col):
             return self.grid[row][col]

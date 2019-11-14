@@ -31,6 +31,9 @@ class Tile:
     def has_ship(self):
         return bool(self.current_value)
 
+    def is_sunk(self):
+        return bool(self.current_value) and self.current_value.is_sunk
+
     def render(self, screen, x, y, target):
         color = None
         # this needs to be replaced with sprites
@@ -43,7 +46,7 @@ class Tile:
             color = colors['green']
         else:
             color = colors['white']
-        if self.has_ship() and self.current_value.is_sunk:
+        if self.is_sunk():
             color = colors['black']
         pygame.draw.rect(screen, color, (x, y,
                          board_params['cell_width'],
