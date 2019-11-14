@@ -1,4 +1,3 @@
-from ai_player import AI
 from player import Player
 from view import GameView
 from board import Board
@@ -14,12 +13,14 @@ direction_map = {
     'U': Direction.UP,
 }
 
+
 class Main:
     def __init__(self, player_one: str, player_two: str):
         self.player_one = Player(player_one)
         self.player_two = Player(player_two)
         self.view = GameView(self)
-        self.select_match = re.compile(r'^([0-7])\s([0-7])\s([0-7])\s([LRUDlrud])\s*$')
+        self.select_match = \
+            re.compile(r'^([0-7])\s([0-7])\s([\d])\s([LRUDlrud])\s*$')
         self.game_match = re.compile(r'^([0-7])\s([0-7])\s*$')
 
     def play(self):
@@ -31,7 +32,8 @@ class Main:
 
     def judge(self):      ## zeina: needs to be implemented      
         '''
-        Returns a list with the first index being the winner and the second index being the loser.
+        Returns a tuple with the first index being the winner
+        and the second index being the loser.
         '''
         if self.player_one.number_of_ships == 0:
             return (self.player_two, self.player_one)
@@ -84,7 +86,8 @@ class Main:
     def parse_select(self, string) -> tuple:
         match = self.select_match.match(string)
         if not bool(match):
-            print("Syntactically Incorrect")     #TODO: Zeina -- make a Stage 
+            print("Incorrect formatting for ship placement")
+            print("Make sure ROW *SPACE* COL *SPACE* SHIP ID *SPACE* DIRECTION (U or D or L or R)")
             return None
         row, col, ship_num, d_string = match.groups()
         row, col, ship_num = int(row), int(col), int(ship_num)
@@ -94,7 +97,7 @@ class Main:
     def parse_game(self, string) -> tuple:
         match = self.game_match.match(string)
         if not bool(match):
-            print("Syntactically Incorrect")        #Zeina: add stage
+            print("Incorrect format for ship move. Make sure ROW *SPACE* COL")
             return None
         return tuple(map(int, match.groups()))
 

@@ -6,6 +6,7 @@ from util.parameters import board_params
 from util import parameters
 import pygame
 
+
 class Board:
     grid: List[List[Tile]]
 
@@ -23,7 +24,7 @@ class Board:
                 xpos = (self.margin + self.width) * column + self.margin
                 ypos = (self.margin + self.height) * row + self.margin
                 self.get(row, column).render(screen,
-                                              xpos + offx, ypos + offy, target)
+                                             xpos + offx, ypos + offy, target)
                 if self.get(row, column).anchor:
                     anchor_points.append((self.get(row, column),
                                           xpos + offx, ypos + offy))
@@ -35,10 +36,11 @@ class Board:
         xpos & ypos: represent bounding box of the maps.
         curr_screen: represents the parent view the map subiew is presented in.
 
-        This is not so elegant, we'll need to add a method to handle hits/misses,
-        your oponents board would be the data source for these methods
+        This is not so elegant, we'll need to add a method to
+        handle hits/misses, your oponents board would be the
+        data source for these methods
         """
-        #data source
+        #  data source
         grid = []
         width = 20
         height = 20
@@ -48,31 +50,31 @@ class Board:
             for column in range(8):
                 grid[row].append(0)
 
-        #1's represent hits and are red
+        # 1's represent hits and are red
         grid[1][5] = 1
-        #2's represent misses and are blue
+        # 2's represent misses and are blue
         grid[3][6] = 2
 
-        #draw grid
+        # draw grid
         for row in range(8):
             for column in range(8):
                 color = parameters.colors['white']
                 if grid[row][column] == 1:
                     color = parameters.colors['red']
                 pygame.draw.rect(curr_screen,
-                                color,
-                                [((margin + width) * column + margin)+xpos,
-                                ((margin + height) * row + margin)+ypos,
-                                width,
-                                height])
+                                 color,
+                                 [((margin + width) * column + margin)+xpos,
+                                  ((margin + height) * row + margin)+ypos,
+                                  width,
+                                  height])
                 if grid[row][column] == 2:
                     color = parameters.colors['blue']
                 pygame.draw.rect(curr_screen,
-                                color,
-                                [((margin + width) * column + margin)+xpos,
-                                ((margin + height) * row + margin)+ypos,
-                                width,
-                                height])
+                                 color,
+                                 [((margin + width) * column + margin)+xpos,
+                                  ((margin + height) * row + margin)+ypos,
+                                  width,
+                                  height])
 
     def is_ship(self, row, col):
         print(bool(self.get(row, col).current_value))

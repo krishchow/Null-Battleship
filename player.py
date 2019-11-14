@@ -2,6 +2,7 @@ from board import Board
 import pygame
 import ship as S
 
+
 class Player:
     icon: pygame.Surface     # initialized use of image for object
 
