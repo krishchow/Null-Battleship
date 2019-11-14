@@ -3,7 +3,9 @@ import pygame
 images = {
     5: pygame.image.load('sprites/5.png'),
     4: pygame.image.load('sprites/4.png'),
-    3: pygame.image.load('sprites/3.png')
+    3: pygame.image.load('sprites/3.png'),
+    2: pygame.image.load('sprites/2.png'),
+    1: pygame.image.load('sprites/1.png')
 }
 
 class ShipAbstract:
@@ -82,6 +84,7 @@ class Destroyer(ShipAbstract):
         self.vertical_length, self.horizontal_length = 2, 1
         self.cost = 2
         self.total_alive = self.get_total()
+        self.sprite = images[self.id].copy()
 
 
 class Scout(ShipAbstract):
@@ -92,3 +95,4 @@ class Scout(ShipAbstract):
         self.vertical_length, self.horizontal_length = 1, 1
         self.cost = 1
         self.total_alive = self.get_total()
+        self.sprite = images[self.id].copy()
