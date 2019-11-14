@@ -26,7 +26,7 @@ class GameView:
             self.parse_events()
             self.current_page.render()
             pygame.display.update()
-            self.on_loop()
+            #self.on_loop()
             self.clock.tick(30)
         self.on_cleanup()
 

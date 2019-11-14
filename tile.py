@@ -1,7 +1,14 @@
 from ship import ShipAbstract
 import pygame
 from util.parameters import board_params, colors
+from util.enums import Direction
 
+direction_angle = {
+    Direction.UP: 0,
+    Direction.RIGHT: 90,
+    Direction.DOWN: 180,
+    Direction.LEFT: 270
+}
 
 class Tile:
     icon: pygame.Surface
@@ -49,6 +56,16 @@ class Tile:
                          board_params['cell_width'],
                          board_params['cell_height']))
 
-    def draw_image(self, screen, x, y):
-        # direction = self.anchor
-        pass
+    def draw_image(self, screen, x, y, target):
+        if self.player != target or self.current_value.is_sunk:
+            return
+        direction = self.anchor
+        angle = direction_angle[direction]
+        surface = pygame.transform.rotate(self.current_value.sprite, angle)
+        offsetx,offsety=0,0
+        if direction == Direction.UP:
+            offsety = board_params['cell_height']*(self.current_value.vertical_length-1)
+        elif direction == Direction.LEFT:
+            offsetx = board_params['cell_width']*(self.current_value.horizontal_length-1)
+        
+        screen.blit(surface, [x-offsetx, y-offsety])       
