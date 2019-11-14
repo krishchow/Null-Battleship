@@ -28,7 +28,7 @@ class Board:
                     anchor_points.append((self.get(row, column),
                                           xpos + offx, ypos + offy))
         for point, x, y in anchor_points:
-            point.draw_image(screen, x, y)
+            point.draw_image(screen, x, y, target)
 
     def get_map_view(self, curr_screen, xpos, ypos):
         """
@@ -75,7 +75,8 @@ class Board:
                                 height])
 
     def is_ship(self, row, col):
-        return self.validate_pos(row, col) and bool(self.get(row, col).current_value)
+        print(bool(self.get(row, col).current_value))
+        return bool(self.get(row, col).current_value)
 
     def get(self, row, col) -> Tile:
         if self.validate_pos(row, col):
@@ -104,12 +105,14 @@ class Board:
 
         for i in range(start, end, d):
             if direction in (Direction.DOWN, Direction.UP):
-                if self.is_ship(i, column):
+                print(i,column)
+                if self.is_ship(i, column) or not self.validate_pos(i, column):
                     return False
                 else:
                     positions.append((i, column))
             else:
-                if self.is_ship(row, i):
+                print(i,row)
+                if self.is_ship(row, i) or not self.validate_pos(row, i):
                     return False
                 else:
                     positions.append((row, i))
