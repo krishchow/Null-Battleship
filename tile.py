@@ -43,14 +43,15 @@ class Tile:
 
     def render(self, screen, x, y, target):
         color = None
-        # this needs to be replaced with sprites
         if self.is_hit:
-            if bool(self.current_value):
-                color = colors['orange']
+            if bool(self.current_value) and target != self.player:
+                color = colors['green']
             else:
                 color = colors['red']
-        elif (target == self.player or self.is_scouted) and self.has_ship():
+        elif (target == self.player and self.has_ship()):
             color = colors['green']
+        elif self.is_scouted:
+            color = colors['orange']
         else:
             color = colors['white']
         if self.is_sunk():

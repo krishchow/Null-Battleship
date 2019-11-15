@@ -71,7 +71,7 @@ class TitlePage(Stage):
 class GameplayPage(TStage):
     def __init__(self, screen: pygame.Surface, game):
         super().__init__(screen, game)
-        self.bg = parameters.colors['lightgrey']
+        self.bg = parameters.colors['ocean']
         self.state = AttackStage.Selection
         self.ship = None
         self.events = []

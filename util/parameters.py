@@ -6,7 +6,8 @@ colors = {
     "blue": (0, 0, 255),
     "black": (0, 0, 0),
     "lightgrey": (210, 210, 210),
-    "orange": (255, 165, 0)
+    "orange": (255, 165, 0),
+    "ocean": (0, 119, 190)
 }
 
 board_params = {
