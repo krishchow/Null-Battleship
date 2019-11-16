@@ -1,6 +1,6 @@
-from board import Board
+from model.board import Board
 import pygame
-import ship as S
+from model.ship import ShipAbstract
 
 
 class Player:
@@ -18,7 +18,7 @@ class Player:
     def is_done(self) -> bool:
         return self.credits == 0
 
-    def add_ship(self, row, col, direction, ship: S.ShipAbstract) -> None:
+    def add_ship(self, row, col, direction, ship: ShipAbstract) -> None:
         # while row pygame.font.init()
         #  need input verification, parsing and then passed to player board
         if self.credits >= ship.cost:

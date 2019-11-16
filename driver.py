@@ -1,17 +1,12 @@
-from player import Player
+from players.ai_player import AI
+from players.human import Player
 from view import GameView
-from board import Board
-from util.enums import Direction, DisplayMode
-from ship import ShipAbstract, Destroyer, Carrier, Cruiser, Battleship, Scout
+from model.board import Board
+import model.ship as S
+from utility.enums import Direction, DisplayMode
+from utility.parameters import direction_map
 import pages.Stages as p
 import re
-
-direction_map = {
-    'L': Direction.LEFT,
-    'R': Direction.RIGHT,
-    'D': Direction.DOWN,
-    'U': Direction.UP,
-}
 
 
 class Main:
@@ -78,7 +73,7 @@ class Main:
     def set_page(self, stage: p.Stage):
         self.view.current_page = stage
 
-    def add_ship(self, row, col, direction, ship: ShipAbstract) -> None:
+    def add_ship(self, row, col, direction, ship: S.ShipAbstract) -> None:
         # while row pygame.font.init()
         #  need input verification, parsing and then passed to player board
         return self.current_player().add_ship(row, col, direction, ship)
@@ -108,17 +103,17 @@ class Main:
         return self.other_board().add_scout(row, col)
 
 
-def get_ship(ship_num: int) -> ShipAbstract:
+def get_ship(ship_num: int) -> S.ShipAbstract:
     if ship_num == 5:
-        return Carrier()
+        return S.Carrier()
     elif ship_num == 4:
-        return Battleship()
+        return S.Battleship()
     elif ship_num == 3:
-        return Cruiser()
+        return S.Cruiser()
     elif ship_num == 2:
-        return Destroyer()
+        return S.Destroyer()
     elif ship_num == 1:
-        return Scout()
+        return S.Scout()
     else:
         return None
 

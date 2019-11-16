@@ -1,9 +1,9 @@
 import queue
 import random
 
-import ship
-from player import Player
-from util.enums import Direction
+import model.ship as ship
+from players.human import Player
+from utility.enums import Direction
 
 
 class AI(Player):

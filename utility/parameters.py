@@ -1,3 +1,5 @@
+from utility.enums import Direction
+
 colors = {
     "white": (255, 255, 255),
     "grey": (169, 169, 169),
@@ -15,4 +17,11 @@ board_params = {
     "cell_width": 50,
     "cell_height": 50,
     "margin": 1
+}
+
+direction_map = {
+    'L': Direction.LEFT,
+    'R': Direction.RIGHT,
+    'D': Direction.DOWN,
+    'U': Direction.UP,
 }

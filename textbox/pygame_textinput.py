@@ -45,7 +45,7 @@ class TextInput:
         self.max_width = max_width
         self.input_string = initial_string  # Inputted text
         self.base_length = len(initial_string)
-        font_family = './util/fonts/OpenSans-Regular.ttf'
+        font_family = './utility/fonts/OpenSans-Regular.ttf'
         self.font_object = pygame.font.Font(font_family, font_size)
 
         # Text-surface will be created during the first update call:
