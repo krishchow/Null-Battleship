@@ -74,9 +74,7 @@ class Main:
         self.view.current_page = stage
 
     def add_ship(self, row, col, direction, ship: S.ShipAbstract) -> None:
-        # while row pygame.font.init()
-        #  need input verification, parsing and then passed to player board
-        return self.current_player().add_ship(row, col, direction, ship)
+        return self.player_one.add_ship(row, col, direction, ship)
 
     def parse_select(self, string) -> tuple:
         match = self.select_match.match(string)

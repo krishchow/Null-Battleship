@@ -53,6 +53,7 @@ class Carrier(ShipAbstract):
         self.cost = 5
         self.total_alive = self.get_total()
         self.sprite = images[self.id].copy()
+        self.name = "Man-O-War"
 
 
 class Battleship(ShipAbstract):
@@ -64,6 +65,7 @@ class Battleship(ShipAbstract):
         self.cost = 4
         self.total_alive = self.get_total()
         self.sprite = images[self.id].copy()
+        self.name = "Frigate"
 
 
 class Cruiser(ShipAbstract):
@@ -75,6 +77,7 @@ class Cruiser(ShipAbstract):
         self.cost = 3
         self.total_alive = self.get_total()
         self.sprite = images[self.id].copy()
+        self.name = "Galley"
 
 
 class Destroyer(ShipAbstract):
@@ -86,6 +89,7 @@ class Destroyer(ShipAbstract):
         self.cost = 2
         self.total_alive = self.get_total()
         self.sprite = images[self.id].copy()
+        self.name = "Corvette"
 
 
 class Scout(ShipAbstract):
@@ -97,3 +101,4 @@ class Scout(ShipAbstract):
         self.cost = 1
         self.total_alive = self.get_total()
         self.sprite = images[self.id].copy()
+        self.name = "Caravel"
