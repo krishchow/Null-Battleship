@@ -1,5 +1,5 @@
 from utility.enums import DisplayMode, AttackStage
-from utility.viewSupport import Button, Image
+from utility.viewSupport import Button, Image, ShipDisplay, Label
 from utility import parameters
 import pygame
 from textbox.pygame_textinput import TextInput
@@ -54,7 +54,7 @@ class TitlePage(Stage):
         self.clickables.append(button2)
         self.images.append(Image(0, 0, "sprites/island.jpg"))
         self.images.append(Image(600, 0, "sprites/pirate.png"))
-        self.images.append(Image(30, 60, "sprites/battleship.png"))
+        self.images.append(Image(30, 60, "sprites/pirate_logo.png"))
 
     def render(self):
         for i in self.images:
@@ -154,6 +154,35 @@ class GameplayPage(TStage):
         self.game.swap_turn()
 
 
+class BotGamePlayPage(GameplayPage):
+    def __init__(self, screen: pygame.Surface, game):
+        super().__init__(screen, game)
+
+    def render(self):
+        if not isinstance(self.game.current_player(), AI):
+            self.screen.fill(self.bg)
+            current = self.game.current_board()
+            other = self.game.other_board()
+            current.get_view(self.screen,
+                             50, 20, self.game.current_player())
+            other.get_view(self.screen,
+                           530, 20, self.game.current_player())
+            self.screen.blit(self.tb.get_surface(), (10, 450))
+        self.execute_events()
+
+    def execute_events(self):
+        if isinstance(self.game.current_player(), AI):
+            self.attack()
+        else:
+            if self.tb.update(self.events):
+                self.parse_input()
+            self.events = []
+
+    def attack(self):
+        self.game.current_player().use_ability()
+        self.transition()
+
+
 class SelectionPage(TStage):
     def __init__(self, screen: pygame.Surface, game):
         super().__init__(screen, game)
@@ -169,7 +198,8 @@ class SelectionPage(TStage):
         self.credits.bg = self.bg
         self.ships = []
         for index, value in enumerate(range(50, 50+(4*95) + 1, 95)):
-            self.ships.append(ShipDisplay(630, value, self.game.get_ship(index + 1)))
+            self.ships.append(ShipDisplay(630, value,
+                              self.game.get_ship(index + 1)))
 
     def render(self):
         self.screen.fill(self.bg)
@@ -257,38 +287,21 @@ class Transiton(Stage):
         super().__init__(screen, game)
         self.next_stage = next_stage
         self.bg = Image(0, 0, "sprites/island.jpg")
-        self.player = Button(200, 50, 200, 40, str(game.player_two)+"'s turn")
-        self.player.draw_bg = False
-        self.player.fontsize = 50
-        self.instruct = Button(200, 50, 200, 140,
-                               "Click anywhere to go to next turn.")
-        self.instruct.draw_bg = False
-        self.instruct.fontsize = 30
+        self.player = Label(200, 50, 200, 40, 
+                            str(game.player_two)+"'s turn", 50)
+        self.instruct = Label(200, 50, 200, 130, 
+                              "Click anywhere to go to the next turn", 30)
+        # self.pirate = Image(600, 0, "sprites/pirate.png")
 
     def render(self):
         self.bg.render(self.screen)
         self.player.render(self.screen)
         self.instruct.render(self.screen)
+        # self.pirate.render(self.screen)
 
     def handle_events(self, events):
         for event in events:
-            if event.type == pygame.MOUSEBUTTONUP or isinstance(self.game.current_player(), AI):
+            if event.type == pygame.MOUSEBUTTONUP or \
+                    isinstance(self.game.current_player(), AI):
                 self.next_stage.re_enter()
                 self.game.set_page(self.next_stage)
-
-
-def handleMouseDown(game) -> None:
-    pos = pygame.mouse.get_pos()
-
-    # Change the x/y screen coordinates to grid coordinates
-    width = parameters.board_params["cell_width"]
-    height = parameters.board_params["cell_height"]
-    margin = parameters.board_params["margin"]
-    column = pos[0] // width + margin
-    row = pos[1] // height + margin
-
-    # Set that location to True
-    board = game.current_board()
-    board.grid[row][column].is_hit = True
-    print(board.grid)
-    print('Click ', pos, 'Grid coordinates: ', row, column)

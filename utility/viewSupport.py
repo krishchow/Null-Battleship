@@ -28,9 +28,9 @@ class Button(Clickable):
         self.bg = p.colors['white']
         self.fg = p.colors['black']
         self.draw_bg = True
-        self.fontsize = 20
+        self.fs = 20
         self.font_text = \
-            pygame.font.Font('./util/fonts/OpenSans-Bold.ttf', self.fontsize)
+            pygame.font.Font('./utility/fonts/OpenSans-Bold.ttf', self.fs)
 
     def render(self, screen):
         if self.draw_bg:
@@ -39,7 +39,8 @@ class Button(Clickable):
         font_text = pygame.font.Font('./utility/fonts/OpenSans-Bold.ttf',
                                      self.fontsize)
 
-        text_surface, text_rect = text_objects(self.text, self.font_text, self.fg)
+        text_surface, text_rect = \
+            text_objects(self.text, self.font_text, self.fg)
 
         text_rect.center = ((self.x+(self.width/2)),
                             (self.y+(self.height/2)))
@@ -65,9 +66,9 @@ class ShipDisplay:
         surface = pygame.transform.rotate(ship.sprite,
                                           p.direction_angle[Direction.RIGHT])
         self.surface = surface
-        self.fontsize = 20
+        self.fs = 20
         self.font_text = \
-            pygame.font.Font('./util/fonts/OpenSans-Bold.ttf', self.fontsize)
+            pygame.font.Font('./utility/fonts/OpenSans-Bold.ttf', self.fs)
         self.fg = p.colors['black']
         self.display_name = self.ship.name + ": " + str(self.ship.cost)
 
@@ -88,15 +89,14 @@ class Label:
         self.x = x
         self.y = y
         self.text = text
-        self.font_s = font_size
+        self.fs = font_size
         self.font_text = \
-            pygame.font.Font('./util/fonts/OpenSans-Bold.ttf', self.font_s)
+            pygame.font.Font('./utility/fonts/OpenSans-Bold.ttf', self.fs)
         self.fg = p.colors['black']
         self.width = width
         self.height = height
 
     def render(self, screen):
-        screen.blit(self.surface, [self.x, self.y])
 
         text_surface, text_rect = \
             text_objects(self.text, self.font_text, self.fg)
