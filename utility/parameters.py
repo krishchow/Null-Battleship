@@ -1,5 +1,4 @@
-from util.enums import Direction
-
+from utility.enums import Direction
 
 colors = {
     "white": (255, 255, 255),
@@ -21,9 +20,9 @@ board_params = {
     "margin": 1
 }
 
-direction_angle = {
-    Direction.UP: 0,
-    Direction.RIGHT: 270,
-    Direction.DOWN: 180,
-    Direction.LEFT: 90
+direction_map = {
+    'L': Direction.LEFT,
+    'R': Direction.RIGHT,
+    'D': Direction.DOWN,
+    'U': Direction.UP,
 }

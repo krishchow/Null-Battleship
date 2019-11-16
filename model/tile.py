@@ -1,7 +1,7 @@
-from ship import ShipAbstract
+from model.ship import ShipAbstract
 import pygame
-from util.parameters import board_params, colors, direction_angle
-from util.enums import Direction
+from utility.parameters import board_params, colors
+from utility.enums import Direction
 
 
 class Tile:

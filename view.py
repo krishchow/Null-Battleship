@@ -1,6 +1,6 @@
 import pygame
-from util.enums import DisplayMode
-from util.parameters import board_params
+from utility.enums import DisplayMode
+from utility.parameters import board_params
 from pages.Stages import Stage
 
 

@@ -1,11 +1,13 @@
-from util.enums import DisplayMode, AttackStage
+from utility.enums import DisplayMode, AttackStage
+from utility.viewSupport import Button, Image
+from utility import parameters
 import pygame
-from util.viewSupport import Button, Image, ShipDisplay, Label
-from util import parameters
 from textbox.pygame_textinput import TextInput
 import threading
 import time
-from ai_player import AI
+from players.ai_player import AI
+
+
 class Stage:
     def __init__(self, screen: pygame.Surface, game):
         self.clickables = []
