@@ -263,7 +263,7 @@ class Transiton(Stage):
 
     def handle_events(self, events):
         for event in events:
-            if event.type == pygame.MOUSEBUTTONUP:
+            if event.type == pygame.MOUSEBUTTONUP or isinstance(self.game.current_player(), AI):
                 self.next_stage.re_enter()
                 self.game.set_page(self.next_stage)
 
