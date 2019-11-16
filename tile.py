@@ -1,14 +1,8 @@
 from ship import ShipAbstract
 import pygame
-from util.parameters import board_params, colors
+from util.parameters import board_params, colors, direction_angle
 from util.enums import Direction
 
-direction_angle = {
-    Direction.UP: 0,
-    Direction.RIGHT: 270,
-    Direction.DOWN: 180,
-    Direction.LEFT: 90
-}
 
 class Tile:
     icon: pygame.Surface
@@ -66,7 +60,7 @@ class Tile:
         direction = self.anchor
         angle = direction_angle[direction]
         surface = pygame.transform.rotate(self.current_value.sprite, angle)
-        offsetx,offsety=0,0
+        offsetx, offsety=0,0
         if direction == Direction.UP:
             offsety = board_params['cell_height']*(self.current_value.vertical_length-1)
         elif direction == Direction.LEFT:

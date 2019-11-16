@@ -1,6 +1,6 @@
 from util.enums import DisplayMode, AttackStage
 import pygame
-from util.viewSupport import Button, Image
+from util.viewSupport import Button, Image, ShipDisplay, Label
 from util import parameters
 from textbox.pygame_textinput import TextInput
 import threading
@@ -157,7 +157,7 @@ class SelectionPage(TStage):
         super().__init__(screen, game)
         self.stage_count = 0
         self.events = []
-        self.bg = parameters.colors['lightgrey']
+        self.bg = parameters.colors['ocean']
 
     def switch_stage(self):
         self.tb = TextInput(initial_string="ROW COL SHIP DIRECTION: ",
@@ -165,6 +165,9 @@ class SelectionPage(TStage):
         base_string = "credits: " + str(self.game.current_player().credits)
         self.credits = Button(500, 20, 100, 30, base_string)
         self.credits.bg = self.bg
+        self.ships = []
+        for index, value in enumerate(range(50, 50+(4*95) + 1, 95)):
+            self.ships.append(ShipDisplay(630, value, self.game.get_ship(index + 1)))
 
     def render(self):
         self.screen.fill(self.bg)
@@ -176,7 +179,7 @@ class SelectionPage(TStage):
                 self.game.switch_stage(DisplayMode.Gameplay)
 
         self.execute_input()
-        pygame.draw.rect(self.screen, parameters.colors['grey'],
+        pygame.draw.rect(self.screen, parameters.colors['land'],
                          (610, 0, 390, 500))
         # drawing map
         # self.game.current_board().get_map_view(self.screen, 720, 0)
@@ -185,7 +188,9 @@ class SelectionPage(TStage):
         self.credits.render(self.screen)
         self.game.current_board().get_view(self.screen,
                                            50, 20, self.game.current_player())
-        self.screen.blit(self.tb.get_surface(), (20, 450))
+        self.screen.blit(self.tb.get_surface(), (10, 450))
+        for s in self.ships:
+            s.render(self.screen)
 
     def execute_input(self):
         if self.tb.update(self.events):
@@ -237,6 +242,8 @@ class BotSelectionPage(SelectionPage):
         self.game.current_board().get_view(self.screen,
                                            50, 20, self.game.current_player())
         self.screen.blit(self.tb.get_surface(), (10, 450))
+        for s in self.ships:
+            s.render(self.screen)
 
 
 class GameOver(Stage):

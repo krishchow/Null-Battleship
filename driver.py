@@ -92,7 +92,11 @@ class Main:
         row, col, ship_num, d_string = match.groups()
         row, col, ship_num = int(row), int(col), int(ship_num)
         direction = direction_map.get(d_string.upper(), None)
-        return (row, col, direction, get_ship(ship_num))
+        ship = self.get_ship(ship_num)
+        if not ship:
+            print("Invalid Ship Number")
+            return None
+        return (row, col, direction, ship)
 
     def parse_game(self, string) -> tuple:
         match = self.game_match.match(string)
@@ -107,20 +111,19 @@ class Main:
     def make_scout(self, row, col):
         return self.other_board().add_scout(row, col)
 
-
-def get_ship(ship_num: int) -> ShipAbstract:
-    if ship_num == 5:
-        return Carrier()
-    elif ship_num == 4:
-        return Battleship()
-    elif ship_num == 3:
-        return Cruiser()
-    elif ship_num == 2:
-        return Destroyer()
-    elif ship_num == 1:
-        return Scout()
-    else:
-        return None
+    def get_ship(self, ship_num: int) -> ShipAbstract:
+        if ship_num == 5:
+            return Carrier()
+        elif ship_num == 4:
+            return Battleship()
+        elif ship_num == 3:
+            return Cruiser()
+        elif ship_num == 2:
+            return Destroyer()
+        elif ship_num == 1:
+            return Scout()
+        else:
+            return None
 
 
 if __name__ == '__main__':

@@ -8,6 +8,7 @@ images = {
     1: pygame.image.load('sprites/1.png')
 }
 
+
 class ShipAbstract:
     total_ships = 5
 

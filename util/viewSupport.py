@@ -1,5 +1,6 @@
 import pygame
-from util import parameters
+from util import parameters as p
+from util.enums import Direction
 
 
 def text_objects(text, font, color):
@@ -25,19 +26,19 @@ class Button(Clickable):
     def __init__(self, x, y, width, height, text):
         super().__init__(x, y, width, height)
         self.text = text
-        self.bg = parameters.colors['white']
-        self.fg = parameters.colors['black']
+        self.bg = p.colors['white']
+        self.fg = p.colors['black']
         self.draw_bg = True
         self.fontsize = 20
+        self.font_text = \
+            pygame.font.Font('./util/fonts/OpenSans-Bold.ttf', self.fontsize)
 
     def render(self, screen):
         if self.draw_bg:
             pygame.draw.rect(screen, self.bg,
                              (self.x, self.y, self.width, self.height))
-        font_text = pygame.font.Font('./util/fonts/OpenSans-Bold.ttf',
-                                     self.fontsize)
 
-        text_surface, text_rect = text_objects(self.text, font_text, self.fg)
+        text_surface, text_rect = text_objects(self.text, self.font_text, self.fg)
 
         text_rect.center = ((self.x+(self.width/2)),
                             (self.y+(self.height/2)))
@@ -53,3 +54,53 @@ class Image:
 
     def render(self, screen):
         screen.blit(self.asset, [self.x, self.y])
+
+
+class ShipDisplay:
+    def __init__(self, x, y, ship):
+        self.x = x
+        self.y = y
+        self.ship = ship
+        surface = pygame.transform.rotate(ship.sprite,
+                                          p.direction_angle[Direction.RIGHT])
+        self.surface = surface
+        self.fontsize = 20
+        self.font_text = \
+            pygame.font.Font('./util/fonts/OpenSans-Bold.ttf', self.fontsize)
+        self.fg = p.colors['black']
+        self.display_name = self.ship.name + ": " + str(self.ship.cost)
+
+    def render(self, screen):
+        screen.blit(self.surface, [self.x, self.y])
+
+        text_surface, text_rect = \
+            text_objects(self.display_name, self.font_text, self.fg)
+
+        text_rect.x = self.x
+        text_rect.y = self.y - 30
+
+        screen.blit(text_surface, text_rect)
+
+
+class Label:
+    def __init__(self, x, y, width, height, text, font_size):
+        self.x = x
+        self.y = y
+        self.text = text
+        self.font_s = font_size
+        self.font_text = \
+            pygame.font.Font('./util/fonts/OpenSans-Bold.ttf', self.font_s)
+        self.fg = p.colors['black']
+        self.width = width
+        self.height = height
+
+    def render(self, screen):
+        screen.blit(self.surface, [self.x, self.y])
+
+        text_surface, text_rect = \
+            text_objects(self.text, self.font_text, self.fg)
+
+        text_rect.center = ((self.x+(self.width/2)),
+                            (self.y+(self.height/2)))
+
+        screen.blit(text_surface, text_rect)
