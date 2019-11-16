@@ -145,7 +145,8 @@ class GameplayPage(TStage):
             self.state = AttackStage.Selection
             self.tb.lock = True
             self.tb.modify_base_string('CHOOSE SHIP ROW|COL: ')
-            self.timed_transition()
+            if not self.game.game_over():
+                self.timed_transition()
 
     def handle_events(self, events):
         self.events = events
@@ -279,17 +280,25 @@ class BotSelectionPage(SelectionPage):
 
 
 class GameOver(Stage):
+    def switch_stage(self):
+        winner, loser = self.game.judge()
+        self.win_text = Label(500, 40, 0, 0, winner.name + " Wins!", 60)
+        self.lose_text = Label(500, 150, 0, 0, loser.name + " Loses!", 30)
+        self.bg = Image(0, 0, "sprites/island.jpg")
+
     def render(self):
-        self.screen.fill(parameters.colors["grey"])
+        self.bg.render(self.screen)
+        self.win_text.render(self.screen)
+        self.lose_text.render(self.screen)
 
 class Transiton(Stage):
     def __init__(self, screen: pygame.Surface, game, next_stage: TStage):
         super().__init__(screen, game)
         self.next_stage = next_stage
         self.bg = Image(0, 0, "sprites/island.jpg")
-        self.player = Label(200, 50, 200, 40, 
+        self.player = Label(200, 50, 200, 40,
                             str(game.player_two)+"'s turn", 50)
-        self.instruct = Label(200, 50, 200, 130, 
+        self.instruct = Label(200, 50, 200, 130,
                               "Click anywhere to go to the next turn", 30)
         # self.pirate = Image(600, 0, "sprites/pirate.png")
 
