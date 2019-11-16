@@ -34,3 +34,9 @@ class Player:
                 self.number_of_ships -= 1
             return True
         return False
+
+    def add_scout(self, row, col) -> None:
+        return self.board.add_scout(row, col)
+
+    def __str__(self):
+        return self.name

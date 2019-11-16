@@ -109,7 +109,8 @@ class GameplayPage(TStage):
             elif self.state == AttackStage.Attacks: self.attack_operation(values)
 
     def selection_operation(self, values):
-        if not self.game.current_board().is_ship(*values):
+        if not self.game.current_board().is_ship(*values) or \
+                self.game.current_board().is_sunk(*values):
             return
         ship = self.game.current_board().get(*values).current_value
         self.tb.clear_user_text()
@@ -247,9 +248,18 @@ class Transiton(Stage):
         super().__init__(screen, game)
         self.next_stage = next_stage
         self.bg = Image(0, 0, "sprites/island.jpg")
+        self.player = Button(200, 50, 200, 40, str(game.player_two)+"'s turn")
+        self.player.draw_bg = False
+        self.player.fontsize = 50
+        self.instruct = Button(200, 50, 200, 140,
+                               "Click anywhere to go to next turn.")
+        self.instruct.draw_bg = False
+        self.instruct.fontsize = 30
 
     def render(self):
         self.bg.render(self.screen)
+        self.player.render(self.screen)
+        self.instruct.render(self.screen)
 
     def handle_events(self, events):
         for event in events:

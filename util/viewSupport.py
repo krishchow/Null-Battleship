@@ -27,11 +27,15 @@ class Button(Clickable):
         self.text = text
         self.bg = parameters.colors['white']
         self.fg = parameters.colors['black']
+        self.draw_bg = True
+        self.fontsize = 20
 
     def render(self, screen):
-        pygame.draw.rect(screen, self.bg,
-                         (self.x, self.y, self.width, self.height))
-        font_text = pygame.font.Font('./util/fonts/OpenSans-Bold.ttf', 20)
+        if self.draw_bg:
+            pygame.draw.rect(screen, self.bg,
+                             (self.x, self.y, self.width, self.height))
+        font_text = pygame.font.Font('./util/fonts/OpenSans-Bold.ttf',
+                                     self.fontsize)
 
         text_surface, text_rect = text_objects(self.text, font_text, self.fg)
 
