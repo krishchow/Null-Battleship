@@ -13,6 +13,7 @@ class Tile:
         self.is_scouted = False
         self.player = player
         self.anchor = None
+        self.selected = False
 
     def add_ship(self, ship: ShipAbstract) -> bool:
         if not self.current_value:
@@ -50,6 +51,8 @@ class Tile:
             color = colors['white']
         if self.is_sunk():
             color = colors['black']
+        if self.selected:
+            color = colors['yellow']
         pygame.draw.rect(screen, color, (x, y,
                          board_params['cell_width'],
                          board_params['cell_height']))

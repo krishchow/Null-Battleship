@@ -80,7 +80,8 @@ class GameplayPage(TStage):
         self.move_queue = []
         self.tb = TextInput(initial_string="CHOOSE SHIP ROW|COL: ",
                             max_width=950)
-
+        self.selected_tile = None
+    
     def switch_stage(self):
         self.transition()
 
@@ -118,6 +119,8 @@ class GameplayPage(TStage):
         self.tb.clear_user_text()
         self.sc = ship.num_scouts
         self.ac = ship.num_attacks
+        self.game.current_board().get(*values).selected = True
+        self.selected_tile = values
         self.swap_state()
 
     def scout_operation(self, values):
@@ -145,6 +148,8 @@ class GameplayPage(TStage):
             self.state = AttackStage.Selection
             self.tb.lock = True
             self.tb.modify_base_string('CHOOSE SHIP ROW|COL: ')
+            self.game.current_board().get(*self.selected_tile).selected = False
+            self.selected_tile = None
             if not self.game.game_over():
                 self.timed_transition()
 

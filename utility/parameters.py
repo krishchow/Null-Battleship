@@ -10,7 +10,8 @@ colors = {
     "lightgrey": (210, 210, 210),
     "orange": (255, 165, 0),
     "ocean": (0, 119, 190),
-    "land": (0, 148, 50)
+    "land": (0, 148, 50),
+    "yellow": (249, 202, 36)
 }
 
 board_params = {
