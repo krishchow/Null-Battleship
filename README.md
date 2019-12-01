@@ -1,31 +1,9 @@
 # Null-Battleship
 CSC290 Project - Team Null
 
-# Project Title
-
-Pirateship by Team Null(CSC290)
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-Mac - Initalize virtual environment
-
-```bash
-# create a virtualenv called 'venv' and use it.
-pip3 install virtualenv
-python3 -m virtualenv venv
-. ./venv/bin/activate
-# venvdotapp helps the python be a mac 'app'. So the pygame window can get focus.
-pip3 install requirements.txt
-
-# See if pygame works with the oo module, and the aliens example.
-python -m pygame.examples.aliens
-```
 
 ### Installing
 
