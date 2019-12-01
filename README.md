@@ -1,6 +1,8 @@
 # Null-Battleship
 CSC290 Project - Team Null
 
+Demo of our game: PirateShip 
+#### Z -- having issues formatting. 
 var vimeoUrl = "https://vimeo.com/376599351"
 console.log(embed(vimeoUrl))
 
