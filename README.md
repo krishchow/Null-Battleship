@@ -47,7 +47,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Game Demo
 
-[![Pirate Ship Thumbnail](https://i.imgur.com/O5Qyue2.png)](http://www.youtube.com/watch?v=rlacfsHVneo "Pirate ship demo")
+[![Pirate Ship Thumbnail](https://i.imgur.com/8Ea8Cbr.png)](http://www.youtube.com/watch?v=rlacfsHVneo "Pirate ship demo")
 
 
 ## Built With
