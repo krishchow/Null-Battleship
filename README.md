@@ -3,11 +3,11 @@ CSC290 Project - Team Null
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine.
 
 ### Installing
 
-1.) Download this repo via the '`Clone or download`' button or clone it via the git CLI:
+1.) Download this repo via the `Clone or download` button or clone it via the git CLI:
 
 ```
 git clone https://github.com/krishchow/Null-Battleship.git
@@ -17,6 +17,11 @@ git clone https://github.com/krishchow/Null-Battleship.git
 
 ```
 pip install -r requirements.txt
+```
+3.) Start the game by running `driver.py`, either manually in a python interpreter or via python CLI:
+
+```
+python driver.py
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
