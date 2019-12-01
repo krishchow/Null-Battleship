@@ -47,6 +47,8 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Game Demo
 
+A quick narrated playthrough of the game:
+
 [![Pirate Ship Thumbnail](https://i.imgur.com/8Ea8Cbr.png)](http://www.youtube.com/watch?v=rlacfsHVneo "Pirate ship demo")
 
 
