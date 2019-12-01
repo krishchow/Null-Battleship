@@ -47,10 +47,8 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Game Demo
 
-Demo of our game: PirateShip 
-#### Z -- having issues formatting. 
-var vimeoUrl = "https://vimeo.com/376599351"
-console.log(embed(vimeoUrl))
+
+[![Everything Is AWESOME](https://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg)](https://www.youtube.com/watch?v=StTqXEQ2l-Y "Everything Is AWESOME")
 
 
 
