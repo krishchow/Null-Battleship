@@ -7,16 +7,16 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-1.) Download this repo via the 'Clone or download' button or clone it via the git CLI:
+1.) Download this repo via the '`Clone or download`' button or clone it via the git CLI:
 
 ```
 git clone https://github.com/krishchow/Null-Battleship.git
 ```
 
-And repeat
+2.) Once the folder is downloaded and opened ensure the requirements are installed via pip:
 
 ```
-until finished
+pip install -r requirements.txt
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
