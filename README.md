@@ -47,10 +47,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Game Demo
 
-
-[![Everything Is AWESOME](https://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg)](https://www.youtube.com/watch?v=StTqXEQ2l-Y "Everything Is AWESOME")
-
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/rlacfsHVneo/0.jpg)](http://www.youtube.com/watch?v=rlacfsHVneo "Pirate ship demo")
 
 
 ## Built With
