@@ -1,6 +1,13 @@
 # Null-Battleship
 CSC290 Project - Team Null
 
+var vimeoUrl = "https://vimeo.com/376599351"
+console.log(embed(vimeoUrl))
+
+
+
+
+
 Mac - Initalize virtual environment
 
 ```bash
