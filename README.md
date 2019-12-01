@@ -67,6 +67,7 @@ Instructions for comments for users to contribute could go here.
 ## Authors/Summary's
 
 * **Krish Chowdhary** - *[Insert Summary]* 
+* **Sabeeh ** - *[Insert Summary]* 
 * **Jaden Banson** - *[Insert Summary]* 
 * **Zeina Adi** - *[Insert Summary]* 
 * **Kevin Borja** - *[Insert Summary]* 
