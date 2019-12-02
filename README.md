@@ -49,7 +49,7 @@ Instructions for comments for users to contribute could go here.
 * **Zeina Adi** - *[Insert Summary]* 
 * **Kevin Borja** - *[Insert Summary]* 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/krishchow/Null-Battleship/graphs/contributors) who participated in this project.
 
 ## License
 
