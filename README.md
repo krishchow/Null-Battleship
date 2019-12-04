@@ -103,6 +103,9 @@ Pirateship is a user-friendly interactive game that the public can extend in ord
 
     Minigames and other game modes. For example, a survival game mode can be implemented where you and your opponent only possess one ship and must play until one player kills the other players sole ship.
 
+How to extend Pirateship (Instructions):
+--> In order to add obstacles to an extended version of Pirateship, follow the instructions below:
+
 ## Authors/Summa#ry's
 
 * **Krish Chowdhary** - *[Insert Summary]*
