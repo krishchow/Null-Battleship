@@ -54,7 +54,7 @@ The game is played using keyboard and mouse input.
 We have broken our code up into several key folders and classes. This is captured in the diagram below, which shows we organized the code.
 
 ### Directory
-![Directory Structure](https://i.imgur.com/iSQIthh.png)
+![Directory Structure](https://i.imgur.com/AJDQIJC.png)
 
 ### Model
 
