@@ -32,21 +32,38 @@ A quick narrated playthrough of the game:
 
 ## Game Controls
 
-The game is played using keyboard and mouse input.
+The game is played using keyboard inputs.
 
 ```
-[0-7]     Number range for board coordinates
+[0-7]       Number range for board coordinates [Row, Column]
 ```
 ```
-[1-5]     Number range for the game's ships
+[1-5]       Number range for the game's ships
 ```
 ```
-[U,D,L,R] Letter range for choosing ship's direction [Up, Down, Left, Right]
+[U,D,L,R]   Letter range for choosing ship's direction [Up, Down, Left, Right]
 ```
+
+**Important**: Inputs must be separated by spaces.
+
+## Ships
+
+The game has 5 different ships, each with their own abilities.
+Players spend their credits on ships of their choosing.
+
+|Ship Name|Ship Cost|Ship Ability|
+|---------|---------|------------|
+|Caravel|1| 1 Attack|
+|Corvette|2| 1 Attack, 1 Scout|
+|Galley|3| 1 Attack, 2 Scouts|
+|Frigate|4| 2 Attacks, 1 Scout|
+|Man-O-War|5| 3 Attacks|
+
+
 
 ## Built With
 
-* [Python 3](https://www.python.org/download/releases/3.0/) - Languge
+* [Python 3](https://www.python.org/download/releases/3.0/) - Language
 * [Pygame](https://www.pygame.org/news) - Game Library
 
 ## Code Overview and Design
@@ -60,7 +77,7 @@ We have broken our code up into several key folders and classes. This is capture
 
 Our model folder contains all code related the core data involved with gameplay. This means the following classes:
 
-* Board - The Board is the primary representation of the game's current state, and it mainly contains pointers to 64 Tile objects, each of which maintains the current state of an individual tile. 
+* Board - The Board is the primary representation of the game's current state, and it mainly contains pointers to 64 Tile objects, each of which maintains the current state of an individual tile.
 * Ship - The Ship abstract class and it's implementations, each of which represents one of the possible ships a player might place on their board.
 * Tile - The Tile class maintains all information about a specific tile, and also contains a pointer to the Ship object currently on that Tile (if there is one).
 
@@ -70,7 +87,7 @@ These classes interact with each other through a variety of functions defined in
 
 The view code is all captured in the view, view_support and stages files. There are several key classes, such as Stage, GameView, Clickable, ShipDisplay and Button.
 
-* GameView - This is the central class reponsible for running the view and performing the core parsing
+* GameView - This is the central class responsible for running the view and performing the core parsing
 * Stage - The Stage abstract class is the class responsible for rendering and handling input from any stage in the game
 * ShipDisplay - The ShipDisplay is used to render the Ship sprites in the Ship Selection Stage.
 * Label - The Label is a common class used in various stages, which renders some dynamic text
@@ -79,21 +96,21 @@ The view code is all captured in the view, view_support and stages files. There 
 
 The primary interaction is between the Controller and the Stages. At a high level, the stages can be dynamically swaped when going between different game states. This allows for a cleaner and more extensible page structure.
 
-Each stage encapsulates one specific game function, and calls on the appropriate helper functions where required. Options like background color, image sizes, button locations and display text can all be found in the appropiate stage for the game state. 
+Each stage encapsulates one specific game function, and calls on the appropriate helper functions where required. Options like background color, image sizes, button locations and display text can all be found in the appropiate stage for the game state.
 
 ### Controller
 
-The driver is the file which must be executed to run this application. The Main class is responsible for coordinating the view and the model. It also provides critical parsing functionality which is used by the various stages. The controller also checks if win conditions are met and handles Ship building. 
+The driver is the file which must be executed to run this application. The Main class is responsible for coordinating the view and the model. It also provides critical parsing functionality which is used by the various stages. The controller also checks if win conditions are met and handles Ship building.
 
 ## Contributing
 
-The first step to contribute to this project would be to clone the GitHub repository, and install the prerequisite software. 
+The first step to contribute to this project would be to clone the GitHub repository, and install the prerequisite software.
 
-In order to contribute to this project, we encourage you to first read the existing code base. This should provide with an understanding of the various code components and logic behind the model. From here, you can begin working on your additional features, while making use of the existing helper functions. Please ensure that all new code conforms to the flake8 style standard. 
+In order to contribute to this project, we encourage you to first read the existing code base. This should provide with an understanding of the various code components and logic behind the model. From here, you can begin working on your additional features, while making use of the existing helper functions. Please ensure that all new code conforms to the flake8 style standard.
 
-After finishing your code features, please create a pull request on GitHub. You can find a great guide for how to create a [Pull Request here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). 
+After finishing your code features, please create a pull request on GitHub. You can find a great guide for how to create a [Pull Request here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-### Extending Pirateship 
+### Extending Pirateship
 
 Pirateship is a user-friendly interactive game that the public can extend in order to add features and personalize game aspects which will enhance the experience of a childhood favourite playdown. Don’t know where to start? The following are examples that an individual can incorporate in order to extend the game:
 
@@ -107,9 +124,9 @@ How to extend Pirateship (Instructions):
 
 --> In order to add obstacles to an extended version of Pirateship, follow the instructions below:
 
-## Authors/Summa#ry's
+## Authors/Summary's
 
-* **Krish Chowdhary** - I had a multi-faceted role in the team, and as a result, my code contributions can be found throughout the repository.  Some of the key features that I worked on included writing the majority of the individual game stages, the Main class, the Board and the Tile classes. My work on the Board and Tile also involved designing how we wanted to model the Battleship game, and this initial planning stage was critical for the success of the game itself. The Main class involved bringing together all the different application components, and integrating them through a series of helper functions. These provided an easy API and made modifying and improving the code fairly straight forward. For the README, I worked on the “Code Overview and Design” section and one part of the “Contributing” section. I chose to work on the former since I had led to the discussion on the original design of the application, this meant that I had a deep understanding of how all the classes interacted with each other. For the latter, since I have some experience with open-source projects, I chose to write up a small guide to teach people how to contribute to the project. 
+* **Krish Chowdhary** - I had a multi-faceted role in the team, and as a result, my code contributions can be found throughout the repository.  Some of the key features that I worked on included writing the majority of the individual game stages, the Main class, the Board and the Tile classes. My work on the Board and Tile also involved designing how we wanted to model the Battleship game, and this initial planning stage was critical for the success of the game itself. The Main class involved bringing together all the different application components, and integrating them through a series of helper functions. These provided an easy API and made modifying and improving the code fairly straight forward. For the README, I worked on the “Code Overview and Design” section and one part of the “Contributing” section. I chose to work on the former since I had led to the discussion on the original design of the application, this meant that I had a deep understanding of how all the classes interacted with each other. For the latter, since I have some experience with open-source projects, I chose to write up a small guide to teach people how to contribute to the project.
 * **Sabeeh Ashraf** - *[Insert Summary]*
 * **Jaden Banson** - *[Insert Summary]*
 * **Zeina Adi** - *[Insert Summary]*
