@@ -109,7 +109,7 @@ How to extend Pirateship (Instructions):
 
 ## Authors/Summa#ry's
 
-* **Krish Chowdhary** - *[Insert Summary]*
+* **Krish Chowdhary** - I had a multi-faceted role in the team, and as a result, my code contributions can be found throughout the repository.  Some of the key features that I worked on included writing the majority of the individual game stages, the Main class, the Board and the Tile classes. My work on the Board and Tile also involved designing how we wanted to model the Battleship game, and this initial planning stage was critical for the success of the game itself. The Main class involved bringing together all the different application components, and integrating them through a series of helper functions. These provided an easy API and made modifying and improving the code fairly straight forward. For the README, I worked on the “Code Overview and Design” section and one part of the “Contributing” section. I chose to work on the former since I had led to the discussion on the original design of the application, this meant that I had a deep understanding of how all the classes interacted with each other. For the latter, since I have some experience with open-source projects, I chose to write up a small guide to teach people how to contribute to the project. 
 * **Sabeeh Ashraf** - *[Insert Summary]*
 * **Jaden Banson** - *[Insert Summary]*
 * **Zeina Adi** - *[Insert Summary]*
@@ -120,7 +120,3 @@ See also the list of [contributors](https://github.com/krishchow/Null-Battleship
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-
-
-
