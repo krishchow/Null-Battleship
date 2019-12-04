@@ -95,7 +95,13 @@ After finishing your code features, please create a pull request on GitHub. You 
 
 ### Extending Pirateship 
 
-Pirateship is a user-friendly interactive game that the public can extend in order to add features and personal preferences which will enhance the experience of a childhood favourite playdown. Don’t know where to start? The following are examples that an individual can incorporate in order to extend the game:
+Pirateship is a user-friendly interactive game that the public can extend in order to add features and personalize game aspects which will enhance the experience of a childhood favourite playdown. Don’t know where to start? The following are examples that an individual can incorporate in order to extend the game:
+
+    Obstacles that increase the difficulty of the board configuration when players select the location of their ship on the map. For example, particular areas within the board boundaries can be set as island or rock objects.
+
+    Different and personalized themed maps, ships and game graphics. For example, as opposed to the traditional battleship and Pirateship, one can choose to extend the game to play an aircraft version of the game, “AirShip”.
+
+    Minigames and other game modes. For example, a survival game mode can be implemented where you and your opponent only possess one ship and must play until one player kills the other players sole ship.
 
 ## Authors/Summa#ry's
 
