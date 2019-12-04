@@ -93,7 +93,9 @@ In order to contribute to this project, we encourage you to first read the exist
 
 After finishing your code features, please create a pull request on GitHub. You can find a great guide for how to create a [Pull Request here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). 
 
-## Authors/Summary's
+## Extending Pirateship 
+
+## Authors/Summa#ry's
 
 * **Krish Chowdhary** - *[Insert Summary]*
 * **Sabeeh Ashraf** - *[Insert Summary]*
