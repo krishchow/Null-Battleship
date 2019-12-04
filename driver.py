@@ -5,7 +5,7 @@ from model.board import Board
 import model.ship as S
 from utility.enums import DisplayMode
 from utility.parameters import direction_map
-import pages.Stages as p
+import pages.stages as p
 import re
 
 

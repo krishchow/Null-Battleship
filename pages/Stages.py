@@ -1,5 +1,5 @@
 from utility.enums import DisplayMode, AttackStage
-from utility.viewSupport import Button, Image, ShipDisplay, Label
+from utility.view_support import Button, Image, ShipDisplay, Label
 from utility import parameters
 import pygame
 from textbox.pygame_textinput import TextInput

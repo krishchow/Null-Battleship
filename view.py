@@ -1,7 +1,7 @@
 import pygame
 from utility.enums import DisplayMode
 from utility.parameters import board_params
-from pages.Stages import Stage
+from pages.stages import Stage
 
 
 class GameView:
