@@ -91,7 +91,7 @@ The first step to contribute to this project would be to clone the GitHub reposi
 
 In order to contribute to this project, we encourage you to first read the existing code base. This should provide with an understanding of the various code components and logic behind the model. From here, you can begin working on your additional features, while making use of the existing helper functions. Please ensure that all new code conforms to the flake8 style standard. 
 
-After finishing your code features, please create a pull request on GitHub. You can find a great guide for how to create a ![Pull Request here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). 
+After finishing your code features, please create a pull request on GitHub. You can find a great guide for how to create a [Pull Request here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). 
 
 ## Authors/Summary's
 
