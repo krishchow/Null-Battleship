@@ -93,7 +93,9 @@ In order to contribute to this project, we encourage you to first read the exist
 
 After finishing your code features, please create a pull request on GitHub. You can find a great guide for how to create a [Pull Request here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). 
 
-## Extending Pirateship 
+### Extending Pirateship 
+
+Pirateship is a user-friendly interactive game that the public can extend in order to add features and personal preferences which will enhance the experience of a childhood favourite playdown. Don’t know where to start? The following are examples that an individual can incorporate in order to extend the game:
 
 ## Authors/Summa#ry's
 
