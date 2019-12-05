@@ -124,15 +124,15 @@ How to extend Pirateship (Instructions):
 
 --> In order to add obstacles to an extended version of Pirateship, follow the instructions below:
 
-    In order to add an obstacle, such as an island on the board during gameplay, an individual will need to extend the model folder of the game, since the objects of the game are present here. 
+    1) In order to add an obstacle, such as an island on the board during gameplay, an individual will need to extend the model folder of the game, since the objects of the game are present here. 
 
-    The next step would be to implement an Island class, which includes the initialization of attributes consisting of the length, name, health, etc. of the island object. 
+    2) The next step would be to implement an Island class, which includes the initialization of attributes consisting of the length, name, health, etc. of the island object. 
 
-    Each object needs an image, for which the code needs to be rendered within the Image class under the utilities folder. 
+    3) Each object needs an image, for which the code needs to be rendered within the Image class under the utilities folder. 
 
-    Once the obstacle class is executed and the image is established, the BotSelectionPage class needs to be extended, in order for the Island obstacle to be present when a user is selecting the pieces to place on their respective board.
+    4) Once the obstacle class is executed and the image is established, the BotSelectionPage class needs to be extended, in order for the Island obstacle to be present when a user is selecting the pieces to place on their respective board.
 
-    Lastly, the GameplayPage class needs to be improved in order to have the Island obstacle present on the board screen while the game is being played.  
+    5) Lastly, the GameplayPage class needs to be improved in order to have the Island obstacle present on the board screen while the game is being played.  
 
 Get innovative and add other features, use your creativity, and extend the game!
 
