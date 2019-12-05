@@ -104,20 +104,19 @@ class Main:
     def make_scout(self, row, col):
         return self.other_board().add_scout(row, col)
 
-
-def get_ship(ship_num: int) -> S.ShipAbstract:
-    if ship_num == 5:
-        return S.Carrier()
-    elif ship_num == 4:
-        return S.Battleship()
-    elif ship_num == 3:
-        return S.Cruiser()
-    elif ship_num == 2:
-        return S.Destroyer()
-    elif ship_num == 1:
-        return S.Scout()
-    else:
-        return None
+    def get_ship(self, ship_num: int) -> S.ShipAbstract:
+        if ship_num == 5:
+            return S.Carrier()
+        elif ship_num == 4:
+            return S.Battleship()
+        elif ship_num == 3:
+            return S.Cruiser()
+        elif ship_num == 2:
+            return S.Destroyer()
+        elif ship_num == 1:
+            return S.Scout()
+        else:
+            return None
 
 
 if __name__ == '__main__':

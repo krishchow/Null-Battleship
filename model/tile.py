@@ -1,6 +1,6 @@
 from model.ship import ShipAbstract
 import pygame
-from utility.parameters import board_params, colors
+from utility.parameters import board_params, colors, direction_angle
 from utility.enums import Direction
 
 

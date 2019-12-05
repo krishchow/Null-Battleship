@@ -1,7 +1,7 @@
 from model.tile import Tile
 from model.ship import ShipAbstract
 from typing import List
-from utility.parameters import board_params
+from utility.parameters import board_params, direction_angle
 from utility import parameters
 from utility.enums import Direction
 import pygame

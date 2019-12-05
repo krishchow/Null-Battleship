@@ -1,5 +1,6 @@
 import pygame
-from utility import parameters
+from utility import parameters as p
+from utility.enums import Direction
 
 
 def text_objects(text, font, color):
@@ -37,7 +38,7 @@ class Button(Clickable):
             pygame.draw.rect(screen, self.bg,
                              (self.x, self.y, self.width, self.height))
         font_text = pygame.font.Font('./utility/fonts/OpenSans-Bold.ttf',
-                                     self.fontsize)
+                                     self.fs)
 
         text_surface, text_rect = \
             text_objects(self.text, self.font_text, self.fg)

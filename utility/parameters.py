@@ -27,3 +27,10 @@ direction_map = {
     'D': Direction.DOWN,
     'U': Direction.UP,
 }
+
+direction_angle = {
+    Direction.LEFT: 270,
+    Direction.RIGHT: 90,
+    Direction.DOWN: 180,
+    Direction.UP: 0
+}
