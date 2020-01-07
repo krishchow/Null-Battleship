@@ -1,4 +1,4 @@
-# CSC290 - Team NULL - Pirateship
+# Team NULL - Pirateship
 
 ## Getting Started
 
